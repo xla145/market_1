@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!-- 普通操作（不纳入权限拦截的） -->
+	<package name="front" extends="base" namespace="/front">
+		<!--系统设置 -->
+		<action name="*_*" class="com.gxuwz.Market.business.action.web.front.{1}Action" method="{2}">
+			<result name="success">${forwardView}</result>
+		</action>
+	</package>
+	
+	<!-- 定义系统设置模块 -->
+	<package name="biz" extends="base" namespace="/biz">
+	
+		<!--系统设置 -->
+		<action name="*_*" class="com.gxuwz.Market.business.action.web.{1}Action" method="{2}">
+			<result name="success">${forwardView}</result>
+			<!-- 后续改为以下方式 -->
+			<!-- <result name="*" type="direct">通过Action直接返回，这一行无需修改</result> -->
+		</action>
+		
+		 
+	</package>
+	
+	<!-- 定义系统设置模块 -->
+	<package name="weixin" extends="base" namespace="/">
+		<!--系统设置 -->
+		<action name="*" class="com.gxuwz.Market.weixin.action.web.{1}Action">
+			<result name="success">${forwardView}</result>
+			<!-- 后续改为以下方式 -->
+			<!-- <result name="*" type="direct">通过Action直接返回，这一行无需修改</result> -->
+		</action>
+	</package>
+	
+	<!-- 导出excel -->
+	<package name="excel" extends="base" namespace="/excel">
+		<action name="*_*" class="com.gxuwz.Market.business.action.web.ExportExcelAction" method="{2}">
+			<result name="success" type="stream">
+				<param name="contentType">application/vnd.ms-excel</param>
+				<param name="contentDisposition">attachment;filename="${fileName}"</param>
+				<param name="inputName">excelStream</param>
+				</result>
+		</action>
+	</package>
+
+</struts>    
