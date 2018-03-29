@@ -35,6 +35,12 @@ public class SysRightDAO extends BaseDaoImpl<SysRight> {
 	 */
 	public List<SysRight> getAllRight(){
 		String queryString="from SysRight where 1=1 order by rightSortOrder asc";
-		return getHibernateTemplate().find(queryString);
+		return this.findByHql(queryString);
+	}
+
+
+	public Result<SysRight> findRightAll(SysRight sysRight){
+		String queryString = "from SysRight where 1=1";
+		return super.find(queryString, null, null, 0, 200);
 	}
 }

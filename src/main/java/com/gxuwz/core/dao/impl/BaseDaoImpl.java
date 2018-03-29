@@ -2,15 +2,13 @@ package com.gxuwz.core.dao.impl;
 
 import com.gxuwz.core.dao.BaseDao;
 import com.gxuwz.core.pagination.Result;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hibernate.HibernateException;
-import org.hibernate.Query;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
+import org.hibernate.*;
+import org.hibernate.criterion.Order;
 import org.hibernate.engine.SessionFactoryImplementor;
 import org.hibernate.hql.ast.QueryTranslatorImpl;
 import org.hibernate.type.Type;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.orm.hibernate3.HibernateCallback;
@@ -23,75 +21,109 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * This class serves as the Base class for all other DAOs - namely to hold
- * common methods that they might all use. Can be used for standard CRUD
- * operations.
+ * 
+ * dao 公共方法
  *
  * @version $ BaseDaoImpl.java 2015-7-13 10:50:44
  */
 @Repository("baseDao")
 public class BaseDaoImpl<T> implements BaseDao<T> {
 
+    @Autowired
     HibernateTemplate hibernateTemplate;
 
-    public HibernateTemplate getHibernateTemplate() {
-        return hibernateTemplate;
-    }
+    // 日志
+    protected final Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
-        this.hibernateTemplate = hibernateTemplate;
-    }
-
-    protected final Log logger = LogFactory.getLog(getClass());
-
+    /**
+     * 添加方法 参数对象
+     * @param entity
+     * @return
+     */
     @Override
     public T save(T entity) {
         try {
-            getHibernateTemplate().saveOrUpdate(entity);
+            hibernateTemplate.saveOrUpdate(entity);
         } catch (RuntimeException e) {
-            logger.error("save failed", e);
+            logger.error("保存失败（"+getClass().getName()+"）,原因是【", e.getMessage()+"】");
             throw e;
         }
         return entity;
     }
 
+
+    /**
+     * 数据合并 主键存在则更新 不存在则新增
+     * @param entity
+     * @return
+     */
     @Override
     public T merge(T entity) {
-        getHibernateTemplate().merge(entity);
+        hibernateTemplate.merge(entity);
         return entity;
     }
 
+    /**
+     * 数据更新
+     * @param entity
+     */
     @Override
     public void update(T entity) {
-        getHibernateTemplate().update(entity);
+        hibernateTemplate.update(entity);
 
     }
 
+
+    /**
+     * 获取对象数据
+     * @param clazz
+     * @param id
+     * @return
+     */
     @Override
     public T get(Class<T> clazz, Serializable id) {
-        return getHibernateTemplate().get(clazz, id);
+        return hibernateTemplate.get(clazz, id);
     }
 
+
+    /**
+     * 删除对象数据
+     * @param clazz
+     * @param id
+     */
     @Override
     public void remove(Class<T> clazz, Serializable id) {
-        getHibernateTemplate().delete(get(clazz, id));
+        hibernateTemplate.delete(get(clazz, id));
     }
 
+    /**
+     * 删除对象数据
+     * @param entity
+     */
     @Override
     public void remove(T entity) {
-        getHibernateTemplate().delete(entity);
+        hibernateTemplate.delete(entity);
     }
 
+
+    /**
+     * 会把指定的缓冲对象进行清除
+     * @param entity
+     */
     @Override
     public void evict(T entity) {
-        getHibernateTemplate().evict(entity);
+        hibernateTemplate.evict(entity);
 
     }
 
+    /**
+     * 获取所有列表数据
+     * @param clazz
+     * @return
+     */
     @Override
     public List<T> getAll(final Class<T> clazz) {
-        Object result = getHibernateTemplate().execute(
+        Object result = hibernateTemplate.execute(
                 new HibernateCallback<Object>() {
                     public Object doInHibernate(Session session)
                             throws HibernateException, SQLException {
@@ -103,14 +135,26 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         return (List) result;
     }
 
+    /**
+     * 获取列表数据
+     * @param hql
+     * @param params
+     * @return
+     */
     @Override
-    public List<T> findByHql(String queryString, Object[] params) {
-        return getHibernateTemplate().find(queryString, params);
+    public List<T> findByHql(String hql, Object... params) {
+        return hibernateTemplate.find(hql, params);
     }
 
+
+    /**
+     * 获取对象数据
+     * @param hql
+     * @return
+     */
     @Override
-    public T findByHql(final String hql) {
-        return (T) getHibernateTemplate().execute(
+    public T getByHql(final String hql,Object... params) {
+        return (T) hibernateTemplate.execute(
                 new HibernateCallback<T>() {
                     public T doInHibernate(Session session)
                             throws HibernateException, SQLException {
@@ -121,14 +165,22 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
                 });
     }
 
+    /**
+     * 分页获取列表数据
+     * @param hql
+     * @param values
+     * @param start
+     * @param limit
+     * @return
+     */
     @Override
-    public List<T> findByHql(final String queryString, final Object[] values,
+    public List<T> findByHql(final String hql, final Object[] values,
                              final int start, final int limit) {
-        return (List) getHibernateTemplate().execute(
+        return (List) hibernateTemplate.execute(
                 new HibernateCallback<List>() {
                     public List doInHibernate(Session session)
                             throws HibernateException, SQLException {
-                        Query query = session.createQuery(queryString);
+                        Query query = session.createQuery(hql);
                         query.setFirstResult(start).setMaxResults(limit);
                         if (values != null) {
                             for (int i = 0; i < values.length; i++) {
@@ -140,19 +192,28 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
                 });
     }
 
+    /**
+     * 所有缓存flush入数据库
+     */
     @Override
     public void flush() {
-        getHibernateTemplate().flush();
+        hibernateTemplate.flush();
     }
 
+    /**
+     * 更新数据
+     * @param hql
+     * @param values
+     * @return
+     */
     @Override
-    public Long update(final String queryString, final Object[] values) {
+    public Long update(final String hql, final Object... values) {
 
-        int c = getHibernateTemplate().executeWithNativeSession(
+        int c = hibernateTemplate.executeWithNativeSession(
                 new HibernateCallback<Integer>() {
                     public Integer doInHibernate(Session session)
                             throws HibernateException {
-                        Query queryObject = session.createQuery(queryString);
+                        Query queryObject = session.createQuery(hql);
 
                         if (values != null) {
                             for (int i = 0; i < values.length; i++) {
@@ -165,17 +226,37 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
         return new Long(c);
     }
 
-    public Result find(final String queryString, final Object[] values, final Type[] types, final int start, final int limit) {
+
+    /**
+     * 更新数据
+     * @param queryString
+     * @return
+     */
+    @Override
+    public int update(String queryString) {
+        return hibernateTemplate.bulkUpdate(queryString);
+    }
+
+    /**
+     * 查询方法
+     * @param hql
+     * @param values
+     * @param types
+     * @param start
+     * @param limit
+     * @return
+     */
+    public Result<T> find(final String hql, final Object[] values, final Type[] types, final int start, final int limit) {
         try {
             Result result = new Result(start, limit);
             if (start != -1 && limit != -1) {
-                result.setTotal(getTotalItems(queryString, values).intValue());
+                result.setTotal(getTotalItems(hql, values).intValue());
             }
-            HibernateTemplate ht = getHibernateTemplate();
+            HibernateTemplate ht = hibernateTemplate;
             List data = ht.executeFind(new HibernateCallback<List>() {
                 public List doInHibernate(Session session)
                         throws HibernateException {
-                    Query queryObject = session.createQuery(queryString);
+                    Query queryObject = session.createQuery(hql);
                     setParameters(queryObject, values, types);
                     if (start >= 0) {
                         queryObject.setFirstResult(start);
@@ -198,19 +279,20 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
 
     /**
-     * @param queryString
+     * 批量更新
+     * @param hql
      * @param values
      * @param types
      * @return
      * @throws DataAccessException
      */
-    protected int bulkUpdate(final String queryString, final Object[] values,
+    protected int bulkUpdate(final String hql, final Object[] values,
                              final Type[] types) throws DataAccessException {
-        Integer updateCount = (Integer) getHibernateTemplate().execute(
+        Integer updateCount = (Integer) hibernateTemplate.execute(
                 new HibernateCallback<Integer>() {
                     public Integer doInHibernate(Session session)
                             throws HibernateException {
-                        Query queryObject = session.createQuery(queryString);
+                        Query queryObject = session.createQuery(hql);
                         setParameters(queryObject, values, types);
                         return new Integer(queryObject.executeUpdate());
                     }
@@ -240,47 +322,58 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
     /**
-     * @param sql
+     * @param hql
      * @param entityAlias
      * @param entityClass
      * @param values
      * @param types
      * @return
      */
-    protected List findBySQL(final String sql, final String entityAlias,
+    protected List<T> findBySQL(final String hql, final String entityAlias,
                              final Class<T> entityClass, final Object[] values,
                              final Type[] types) {
-        return findBySQL(sql, entityAlias, entityClass, values, types, -1, -1)
+        return findBySQL(hql, entityAlias, entityClass, values, types, -1, -1)
                 .getData();
     }
 
 
-    protected Result findBySQL(final String sql, final String entityAlias,
+    protected Result<T> findBySQL(final String hql, final String entityAlias,
                                final Class<T> entityClass, final Object[] values,
                                final Type[] types, final int start, final int limit) {
-        return findBySQL(sql, entityAlias, entityClass, values, types, start,
-                limit, true);
+        return findBySQL(hql, entityAlias, entityClass, values, types, start,
+                limit, true,null);
     }
 
-    @SuppressWarnings("rawtypes")
-    protected Result findBySQL(final String sql, final String entityAlias,
+
+    /**
+     *
+     * @param sql
+     * @param entityAlias 对象别名
+     * @param entityClass
+     * @param values 参数
+     * @param types 参数类型
+     * @param start 起始条数
+     * @param limit
+     * @param readOnly
+     * @return
+     */
+    protected Result<T> findBySQL(final String sql, final String entityAlias,
                                final Class entityClass, final Object[] values, final Type[] types,
-                               final int start, final int limit, boolean readOnly) {
+                               final int start, final int limit, boolean readOnly,Order order) {
 
-        HibernateTemplate ht = getHibernateTemplate();
-
-        Result result = new Result(start, limit);
+        Result<T> result = new Result<T>(start, limit);
 
         if (start != -1 && limit != -1) {
-
             Number count = getTotalItems(sql, values);
             result.setTotal(count.intValue());
         }
 
-        List data = ht.executeFind(new HibernateCallback<List>() {
+        List<T> data = hibernateTemplate.executeFind(new HibernateCallback<List>() {
             public List doInHibernate(Session session)
                     throws HibernateException {
                 SQLQuery query = session.createSQLQuery(sql);
+                Criteria crit = session.createCriteria(getClass());
+                crit.addOrder(order);
                 query.addEntity(entityAlias, entityClass);
                 query.setParameters(values, types);
 
@@ -306,25 +399,26 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
     /**
-     * @param queryString
+     * @param hql
      * @param values
      * @return
      */
-    public Long getTotalItems(String queryString, final Object[] values) {
-        int orderByIndex = queryString.toUpperCase().indexOf(" ORDER BY ");
+    public Long getTotalItems(String hql, final Object[] values) {
+        int orderByIndex = hql.toUpperCase().indexOf(" ORDER BY ");
 
         if (orderByIndex != -1) {
-            queryString = queryString.substring(0, orderByIndex);
+            hql = hql.substring(0, orderByIndex);
         }
 
         QueryTranslatorImpl queryTranslator = new QueryTranslatorImpl(
-                queryString, queryString, Collections.EMPTY_MAP,
-                (SessionFactoryImplementor) getHibernateTemplate().getSessionFactory());
+                hql, hql, Collections.EMPTY_MAP,
+                (SessionFactoryImplementor) hibernateTemplate.getSessionFactory());
         queryTranslator.compile(Collections.EMPTY_MAP, false);
+
         final String sql = "select count(*) from ("
                 + queryTranslator.getSQLString() + ") tmp_count_t";
 
-        Object reVal = getHibernateTemplate().execute(
+        Object reVal = hibernateTemplate.execute(
                 new HibernateCallback<Object>() {
                     public Object doInHibernate(Session session)
                             throws HibernateException, SQLException {

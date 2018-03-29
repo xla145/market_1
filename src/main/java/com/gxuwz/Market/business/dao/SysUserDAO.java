@@ -1,7 +1,6 @@
 package com.gxuwz.Market.business.dao;
 
 
-import com.gxuwz.Market.business.entity.SysRoleRight;
 import com.gxuwz.Market.business.entity.SysUser;
 import com.gxuwz.core.dao.impl.BaseDaoImpl;
 import com.gxuwz.core.pagination.Result;
@@ -33,37 +32,16 @@ public class SysUserDAO extends BaseDaoImpl<SysUser> {
 	 * @author 卢善坚，潘恒飞
 	 * @date 2015.8.8
 	 */
-	@SuppressWarnings("unchecked")
 	public Result<SysUser> find(SysUser sysUser, int page, int size){
 		String queryString = "from SysUser where 1=1";
 		if(null != sysUser.getUserName()){
 			queryString = queryString + " and user_name like '%"+sysUser.getUserName()+"%' or user_address like '%"+sysUser.getUserName()+"%'";
 		}
 		int start=(page-1)*size;
-		int limit =size;
+		int limit = size;
 		return (Result<SysUser> )super.find(queryString, null, null, start, limit);
 	}
-	
-	/**
-	 * 用户登录（app端）--第三方登录
-	 * @param loginNameValue 微博、微信、qq服务器返回的id
-	 * @param loginType 登录方式：1-qq，2-微信，3-微博
-	 * @return Users 对象列表
-	 */
-	public List<SysUser> findByOtherId(String loginNameValue,int loginType){
-		//List<SysUser> listUser = null;
-		String queryString = "from SysUser where 1=1 ";
-		if(1 == loginType){
-			queryString = queryString + " and userQq = '"+loginNameValue+"'";
-		}
-		if(2 == loginType){
-			queryString = queryString + " and userWeixin = '"+loginNameValue+"'";
-		}
-		if(3 == loginType){
-			queryString = queryString + " and userWeibo = '"+loginNameValue+"'";
-		}
-		return this.getHibernateTemplate().find(queryString);
-	}
+
 	
 	/**
 	 * 验证用户名是否重复
@@ -72,8 +50,8 @@ public class SysUserDAO extends BaseDaoImpl<SysUser> {
 	 */
 	@SuppressWarnings("unchecked")
 	public List<SysUser> checkUserId(String userId){
-		String hql = "from SysUser where userId = '"+userId+"'";
-		return this.getHibernateTemplate().find(hql);
+		String hql = "from SysUser where userId = ?";
+		return super.findByHql(hql,userId);
 	}
 	
 	/**
@@ -84,8 +62,8 @@ public class SysUserDAO extends BaseDaoImpl<SysUser> {
 	 */
 	public boolean isHadValue(String property,String value){
 		boolean isT = false;
-		String hql = "from SysUser where "+property+" = '"+value+"'";
-		List<SysUser> list = this.getHibernateTemplate().find(hql);
+		String hql = "from SysUser where "+property+" = ?";
+		List<SysUser> list = super.findByHql(hql,value);
 		if(null != list && 0<list.size()){
 			isT = true;
 		}
@@ -102,7 +80,7 @@ public class SysUserDAO extends BaseDaoImpl<SysUser> {
 	public SysUser findSysUserByProperty(String property,String value){
 		SysUser sysUser = null;
 		String hql = "from SysUser where "+property+" = '"+value+"'";
-		List<SysUser> list = this.getHibernateTemplate().find(hql);
+		List<SysUser> list = this.findByHql(hql);
 		if(null != list && 0 <list.size()){
 			sysUser = list.get(0);
 		}
@@ -128,22 +106,12 @@ public class SysUserDAO extends BaseDaoImpl<SysUser> {
 	public SysUser findByUserid(String userId){
 		SysUser sysUser = null;
 		String hql = "from SysUser where userId = '"+userId+"'";
-		List<SysUser> list = this.getHibernateTemplate().find(hql);
+		List<SysUser> list = this.findByHql(hql);
 		if(null != list && 0<list.size()){
 			sysUser = list.get(0);
 		}
 		return sysUser;
 	}
-	/**
-	 * 根据用户id查询用户的权限id
-	 * @param userId
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	public List<SysRoleRight> findUserPermissions(String userId) {
-		String queryString="select new com.gxuwz.Market.business.entity.SysRoleRight(srr.rightId) " +
-				   "from SysUser su,SysUserRole sur,SysRole sr,SysRoleRight srr "+
-		           "where su.userId=sur.userId and sur.roleId=sr.roleId and sr.roleId=srr.roleId and su.userId='"+userId+"'";
-		return getHibernateTemplate().find(queryString);
-	}
+
+
 }

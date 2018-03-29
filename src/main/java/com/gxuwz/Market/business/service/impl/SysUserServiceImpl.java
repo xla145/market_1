@@ -1,14 +1,7 @@
 package com.gxuwz.Market.business.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-
-
 import com.gxuwz.Market.SystemContext;
+import com.gxuwz.Market.business.dao.SysRoleRightDAO;
 import com.gxuwz.Market.business.dao.SysUserDAO;
 import com.gxuwz.Market.business.entity.SysRoleRight;
 import com.gxuwz.Market.business.entity.SysUser;
@@ -16,6 +9,11 @@ import com.gxuwz.Market.business.entity.SysUserRole;
 import com.gxuwz.Market.business.service.ISysUserRoleService;
 import com.gxuwz.Market.business.service.ISysUserService;
 import com.gxuwz.core.pagination.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>Title: 类名：用户-业务逻辑--实现</p>
@@ -31,6 +29,8 @@ public class SysUserServiceImpl implements ISysUserService {
 	private ISysUserRoleService sysUserRoleService;
 	@Autowired
 	private SysUserDAO sysUserDAO;
+	@Autowired
+	private SysRoleRightDAO sysRoleRightDAO;
 	
 	/**
 	 * 根据用户编号查询用户对象
@@ -97,8 +97,6 @@ public class SysUserServiceImpl implements ISysUserService {
 	 * @return true -允许登录；false -不允许登录
 	 */
 	public boolean isLogin(SysUser sysUser){
-		//System.out.println("sysUser.getUserPassword()="+sysUser.getUserPassword());
-		//System.out.println("sysUser.getUserName()="+sysUser.getUserName());
 		boolean isL = false;//初始化临时变量
 		SysUser sysUserTem = null;
 		try {
@@ -208,8 +206,8 @@ public class SysUserServiceImpl implements ISysUserService {
 	
 	/**
 	 * 删除用户
-	 * @param sysUser 模型
- * @author 潘恒飞，卢善坚
+	 * @param id 模型
+	 * @author 潘恒飞，卢善坚
 	 * @Date 2015.08.09
 	 */
 	@Override
@@ -266,7 +264,7 @@ public class SysUserServiceImpl implements ISysUserService {
 	@Override
 	public List<String> findUserPermissions(String userId) {
 		List<String> strList=new ArrayList<String>();
-		List<SysRoleRight> list=sysUserDAO.findUserPermissions(userId);
+		List<SysRoleRight> list=sysRoleRightDAO.findUserPermissions(userId);
 		for(int i=0;i<list.size();i++){
 			strList.add(list.get(i).getRightId());
 		}

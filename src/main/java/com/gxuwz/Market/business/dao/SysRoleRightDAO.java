@@ -15,7 +15,7 @@ public class SysRoleRightDAO extends BaseDaoImpl<SysRoleRight> {
 	 */
 	public void deleteByRoleId(String roleId){
 		String hql="delete from SysRoleRight srr where srr.roleId='"+roleId+"'";
-		this.getHibernateTemplate().bulkUpdate(hql);
+		this.update(hql);
 	}
 	/**
 	 * 根据角色编号查询出角色权限
@@ -24,7 +24,21 @@ public class SysRoleRightDAO extends BaseDaoImpl<SysRoleRight> {
 	@SuppressWarnings("unchecked")
 	public List<SysRoleRight> findByRoleId(String roleId){
 		String hql = "from SysRoleRight where roleId='"+roleId+"'";
-		return (List<SysRoleRight>)this.getHibernateTemplate().find(hql);
+		return this.findByHql(hql);
 		
+	}
+
+
+	/**
+	 * 根据用户id查询用户的权限id
+	 * @param userId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public List<SysRoleRight> findUserPermissions(String userId) {
+		String queryString="select new com.gxuwz.Market.business.entity.SysRoleRight(srr.rightId) " +
+				"from SysUser su,SysUserRole sur,SysRole sr,SysRoleRight srr "+
+				"where su.userId=sur.userId and sur.roleId=sr.roleId and sr.roleId=srr.roleId and su.userId='"+userId+"'";
+		return this.findByHql(queryString);
 	}
 }

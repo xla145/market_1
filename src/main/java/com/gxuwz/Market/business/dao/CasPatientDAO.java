@@ -1,14 +1,12 @@
 package com.gxuwz.Market.business.dao;
 
-import java.util.List;
-
-import org.springframework.stereotype.Repository;
-
 import com.gxuwz.Market.business.entity.CasPatient;
-import com.gxuwz.Market.business.entity.SysRoleRight;
-import com.gxuwz.Market.business.entity.SysUser;
 import com.gxuwz.core.dao.impl.BaseDaoImpl;
 import com.gxuwz.core.pagination.Result;
+import com.gxuwz.core.util.CommonUtil;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository("casPatientDAO")
 public class CasPatientDAO extends BaseDaoImpl<CasPatient>{
@@ -41,7 +39,6 @@ public class CasPatientDAO extends BaseDaoImpl<CasPatient>{
 		}
 		int start=(page-1)*size;
 		int limit =size;
-		System.out.println("----queryString"+queryString);
 		Result<CasPatient> data =  (Result<CasPatient> )super.find(queryString, null, null, start, limit);
 		return data;
 	}
@@ -53,10 +50,12 @@ public class CasPatientDAO extends BaseDaoImpl<CasPatient>{
 	 * @return
 	 */
 	public CasPatient findCasPatientByPatientName(String patientName){
-		CasPatient casPatient= null; 
-		String hql = "from CasPatient where patient_name = '"+patientName+"'";
-		
-		return casPatient;
+		String hql = "from CasPatient where patient_name =  ?";
+		List<CasPatient> casPatients = super.findByHql(hql, CommonUtil.queryLike(patientName));
+		if (casPatients == null) {
+			return null;
+		}
+		return casPatients.get(0);
 	}
 
 	/**
@@ -66,8 +65,8 @@ public class CasPatientDAO extends BaseDaoImpl<CasPatient>{
 	 */
 	public CasPatient findCasPatientByPatientCode(String patientCode){
 		CasPatient casPatient= null; 
-		String hql = "from CasPatient where patient_code= '"+patientCode+"'";
-		List<CasPatient> list = this.getHibernateTemplate().find(hql);
+		String hql = "from CasPatient where patient_code= ?";
+		List<CasPatient> list = super.findByHql(hql,patientCode);
 		if(null != list && 0 < list.size()){
 			casPatient = list.get(0);
 		}
@@ -80,7 +79,7 @@ public class CasPatientDAO extends BaseDaoImpl<CasPatient>{
 	 */
     public List<CasPatient> getAll() {
 		//查询获取全部的数据
-		List<CasPatient> list=(List<CasPatient>) this.getHibernateTemplate().find("from CasPatient");
+		List<CasPatient> list=(List<CasPatient>) super.findByHql("from CasPatient");
 		return list;
     }
 }

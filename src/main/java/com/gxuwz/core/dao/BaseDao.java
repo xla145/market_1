@@ -34,30 +34,34 @@ public interface BaseDao<T> {
 	   * @param id
 	   * @return
 	   */
-	  public  T get(Class<T> clazz, Serializable id);
+	  public T get(Class<T> clazz, Serializable id);
 	  /**
 	   * 
 	   * @param clazz
 	   * @param id
 	   */
-	  public  void remove(Class<T> clazz, Serializable id);
+	  public void remove(Class<T> clazz, Serializable id);
 	  /**
 	   * 
 	   * @param entity
 	   */
-	  public  void remove(T entity);
+	  public void remove(T entity);
 	  /**
 	   * 
 	   * @return
 	   */
-	  public  List<T> getAll(Class<T> clazz);
+	  public List<T> getAll(Class<T> clazz);
+
+
 	  /**
 	   * 
 	   * @param queryString
 	   * @param params
 	   * @return
 	   */
-	  public  List<T> findByHql(String queryString, Object[] params);
+	  public List<T> findByHql(String queryString, Object... params);
+
+
 	  /**
 	   * 
 	   * @param queryString
@@ -68,12 +72,14 @@ public interface BaseDao<T> {
 	   */
 	  public  List<T> findByHql(String queryString, Object[] params, int start, int limit);
 
+
 	  /**
 	   * Remove the given object from the Session cache
 	   * @param entity
 	   */
 	  public  void evict(T entity);
-	  /**
+
+	   /**
 	   * 
 	   */
 	  public  void flush();
@@ -83,12 +89,16 @@ public interface BaseDao<T> {
 	   * @param values
 	   * @return
 	   */
-	  public  Long update(String queryString, Object[] values);
+	  public Long update(String queryString, Object... values);
+
+
+
+	  public int update(String queryString);
 	  
 	/**
 	 *
 	 * @param hql
 	 * @return T
 	 */
-	  public T findByHql(String hql);
+	  public T getByHql(String hql,Object... params);
 	}

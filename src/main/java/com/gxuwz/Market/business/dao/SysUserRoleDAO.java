@@ -31,17 +31,16 @@ public class SysUserRoleDAO extends BaseDaoImpl<SysUserRole> {
 	 * @param userId 用户编号
 	 */
 	public void deleteByUserId(String userId){
-		String hql="delete from SysUserRole srr where srr.userId='"+userId+"'";
-		this.getHibernateTemplate().bulkUpdate(hql);
+		String hql="delete from SysUserRole srr where srr.userId = ?";
+		super.update(hql,userId);
 	}
 	/**
 	 * 根据用户编号查询用户角色信息
 	 * @param userId
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public List<SysUserRole> findByUserId(String userId){
 		String hql = "from SysUserRole where userId = '"+userId+"'";
-		return (List<SysUserRole>)this.getHibernateTemplate().find(hql);
+		return (List<SysUserRole>)super.findByHql(hql);
 	}
 }

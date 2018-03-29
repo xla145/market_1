@@ -1,6 +1,5 @@
 package com.gxuwz.Market.business.dao;
 
-import com.gxuwz.Market.business.entity.SysRight;
 import com.gxuwz.Market.business.entity.SysRole;
 import com.gxuwz.core.dao.impl.BaseDaoImpl;
 import com.gxuwz.core.pagination.Result;
@@ -35,12 +34,6 @@ public class SysRoleDAO extends BaseDaoImpl<SysRole> {
 		}
 		int start=(page-1)*size;
 		int limit =size;
-		return (Result<SysRole>)super.find(queryString, null, null, start, limit);
-	}
-	
-	@SuppressWarnings("unchecked")
-	public Result<SysRight> findRightAll(SysRight sysRight){
-		String queryString = "from SysRight where 1=1";
-		return (Result<SysRight>)super.find(queryString, null, null, 0, 0);
+		return super.find(queryString, null, null, start, limit);
 	}
 }
