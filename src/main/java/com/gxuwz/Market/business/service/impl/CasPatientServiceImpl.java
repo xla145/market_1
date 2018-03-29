@@ -2,6 +2,7 @@ package com.gxuwz.Market.business.service.impl;
 
 
 import com.alibaba.fastjson.JSON;
+import com.gxuwz.Market.business.constant.CasPatientConstant;
 import com.gxuwz.Market.business.dao.CasPatientDAO;
 import com.gxuwz.Market.business.entity.CasPatient;
 import com.gxuwz.Market.business.service.ICasPatientService;
@@ -27,8 +28,7 @@ public class CasPatientServiceImpl implements ICasPatientService {
 	public boolean add(CasPatient casPatient) {
 		String casPatientCode = CommonUtil.getId("CPT");
 		casPatient.setPatientCode(casPatientCode);
-		casPatient.setStatus(0);
-		casPatient.setPatientCode("A_10001");
+		casPatient.setStatus(CasPatientConstant.CAS_PATIENT_INITIAL_STATUS);
 		casPatient.setCreateTime(new Date());
 		casPatient.setUpdateTime(new Date());
 		return casPatientDAO.add(casPatient);
