@@ -1,8 +1,12 @@
 package com.gxuwz.core.web.action;
+
 import com.gxuwz.Market.SystemContext;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.ServletActionContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -10,123 +14,162 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 /**
- * 
- * @author <a href=mailto:amu_1115@126.com> amu </a>
- * @version $ BaseAction.java 2015-7-26 下午04:20:18
+ * 控制层公共类
+ * @author  tyy
  */
-public class BaseAction extends ActionSupport {	
+public class BaseAction extends ActionSupport {
 
-	private static final long serialVersionUID = -5391490758289533136L;
-	protected Integer page=0;//1
-	protected Integer row=0;//100
-	protected String action;
-	
-	protected String forwardView;//自定义的跳转页面
-	
-	protected HttpServletResponse response;//获取response
-	protected PrintWriter printWriter;//获取输出
-	
+    private static final long serialVersionUID = -5391490758289533136L;
+    private static Logger logger = LoggerFactory.getLogger(BaseAction.class);
+
+    private Integer page = 0;//1
+    private Integer row = 0;//100
+    private String action;
+    private String forwardView;//自定义的跳转页面
+    private HttpServletResponse response;//获取response
+    private PrintWriter printWriter;//获取输出
+    private HttpServletRequest req;
+
+    /**
+     * 获取response
+     * @return
+     */
     public HttpServletResponse getResponse() {
-    	if(null == response){
-    		response = ServletActionContext.getResponse();
+        if (null == response) {
+            response = ServletActionContext.getResponse();
             response.setContentType(SystemContext.ACTION_CONTENT_TYPE);
-            response.setHeader("Cache-Control","no-cache"); 
-    	}
-		return response;
-	}
+            response.setHeader("Cache-Control", "no-cache");
+        }
+        return response;
+    }
 
-	public PrintWriter getPrintWriter() {
-    	if(null == printWriter){
-    		try {
-    			printWriter = getResponse().getWriter();
-    		} catch (IOException e) {
-    			e.printStackTrace();
-    		}
-    	}
-		return printWriter;
-	}
+    /**
+     * 获取PrintWriter
+     * @return
+     */
+    public PrintWriter getPrintWriter() {
+        if (null == printWriter) {
+            try {
+                printWriter = getResponse().getWriter();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return printWriter;
+    }
 
-	public void setPage(Integer page) {
-		this.page = page;
-	}
+    public HttpServletRequest getRequest() {
+        return ServletActionContext.getRequest();
+    }
 
-	public void setRow(Integer row) {
-		this.row = row;
-	}
-
-	public String getAction() {
-		return action;
-	}
-
-	public void setAction(String action) {
-		this.action = action;
-	}
-
-	public int getPage() {
-		if(page==null||page==0){
-			page=SystemContext.DEFUALT_PAGE_NUM;
-		}
-		return page;
-	}
-
-	public void setPage(int page) {
-		this.page = page;
-	}
-	public int getRow() {
-		if(row==null||row==0){
-		   row=SystemContext.DEFUALT_PAGE_SIZE;
-		}
-		return row;
-	}
-
-	public void setRow(int row) {
-		this.row = row;
-	}
-
-	private String[] delids;
+    protected String getContextPath() {
+        return getRequest().getContextPath();
+    }
 
 
-	public String[] getDelids() {
-		return delids;
-	}
+    /**
+     * 获取请求的值
+     * @param paramName
+     * @return
+     */
+    protected String getParameters(String paramName,String defaultValue) {
+        if (req == null) {
+            req = getRequest();
+        }
+        return req.getParameter(paramName) == null ? defaultValue:req.getParameter(paramName);
+    }
 
-	public void setDelids(String[] delids) {
-		this.delids = delids;
-	}
-	public HttpServletRequest getRequest() {
-		return ServletActionContext.getRequest();
-	}
-	protected String getContextPath() {
-		return getRequest().getContextPath();
-	}
-	/**
-	 * 
-	 * @param paramName
-	 * @return
-	 */
-	protected String getParameters(String paramName) {
-		HttpServletRequest req =ServletActionContext.getRequest();
-		return req.getParameter(paramName);
-	}
 
-	protected HttpSession getSession() {
-		return getRequest().getSession();
-	}
-	
-	public String getRootPath(){
-		ActionContext ac = ActionContext.getContext();
-		ServletContext sc = (ServletContext) ac
-				.get(ServletActionContext.SERVLET_CONTEXT);
-		String rootURL = sc.getRealPath("/");
-		return rootURL;
-	}
+    /**
+     * 获取请求的值
+     * @param paramName
+     * @return
+     */
+    protected Integer getParametersToInteger(String paramName,Integer defaultValue) {
+        if (req == null) {
+            req = getRequest();
+        }
+        String value = req.getParameter(paramName);
+        if (StringUtils.isBlank(value)) {
+            return defaultValue;
+        }
+        try{
+            int r = Integer.valueOf(value).intValue();
+            return r;
+        }catch(Exception e){
+            logger.error("转化失败，原因是【"+e.getMessage()+"】");
+        }
+        return defaultValue;
+    }
 
-	public String getForwardView() {
-		return forwardView;
-	}
+    protected HttpSession getSession() {
+        return getRequest().getSession();
+    }
 
-	public void setForwardView(String forwardView) {
-		this.forwardView = forwardView;
-	}
+    public String getRootPath() {
+        ActionContext ac = ActionContext.getContext();
+        ServletContext sc = (ServletContext) ac
+                .get(ServletActionContext.SERVLET_CONTEXT);
+        String rootURL = sc.getRealPath("/");
+        return rootURL;
+    }
+
+    public String getForwardView() {
+        return forwardView;
+    }
+
+    public void setForwardView(String forwardView) {
+        this.forwardView = forwardView;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
+    }
+
+    public void setRow(Integer row) {
+        this.row = row;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    public int getPage() {
+        if (page == null || page == 0) {
+            page = SystemContext.DEFUALT_PAGE_NUM;
+        }
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getRow() {
+        if (row == null || row == 0) {
+            row = SystemContext.DEFUALT_PAGE_SIZE;
+        }
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    private String[] delids;
+
+
+    public String[] getDelids() {
+        return delids;
+    }
+
+    public void setDelids(String[] delids) {
+        this.delids = delids;
+    }
 }

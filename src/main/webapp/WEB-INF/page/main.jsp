@@ -1,18 +1,68 @@
 ﻿<%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" errorPage="" %>
-<%@ include file="/WEB-INF/common/common.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ include file="/WEB-INF/common/common.jsp" %>
+<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>智能二维码微信营销平台</title>
-</head>
-<frameset rows="88,*" cols="*" frameborder="no" border="0" framespacing="0">
-  <frame src="${basePath}/front/Login_openTop.action" name="topFrame" scrolling="no" noresize="noresize" id="topFrame" title="topFrame" />
-  <frameset cols="187,*" frameborder="no" border="0" framespacing="0">
-    <frame src="${basePath}/front/Login_openLeft.action" name="leftFrame" scrolling="no" noresize="noresize" id="leftFrame" title="leftFrame" />
-    <frame src="${basePath}/front/Login_openIndex.action" name="rightFrame" id="rightFrame" title="rightFrame" />
-  </frameset>
-</frameset>
-<noframes><body>
-</body></noframes>
+    <meta charset="utf-8">
+        <title>智能二维码微信营销平台</title>
+        <base href="<%= basePath%>"/>
+        <link href="css/style.css?v=20180331" rel="stylesheet" type="text/css" />
+        <script type="text/javascript" src="js/jquery.js"></script>
+    </head>
+    <body>
+        <div class="main">
+            <div class="top" style="background:url('<%=basePath%>images/topbg.gif') repeat-x;overflow: hidden;">
+                <%@ include file="top.jsp" %>
+            </div>
+            <div class="main">
+                <div class="left">
+                    <%@ include file="left.jsp" %>
+                </div>
+                <div class="right-content">
+                    <iframe src="${basePath}/front/Login_openIndex.action" name="rightFrame" scrolling="auto"></iframe>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
+<style type="text/css">
+    .main {
+        width: 100%;
+        height: auto;
+    }
+    .left {
+        width: 187px;
+        float: left;
+    }
+    .right-content {
+        float: right;
+    }
+</style>
+<script type="text/javascript">
+    $(function() {
+        //导航切换
+        $(".menuson li").click(function() {
+            $(".menuson li.active").removeClass("active");
+            $(this).addClass("active");
+        });
+        $('.title').click(function() {
+            var $ul = $(this).next('ul');
+            $('dd').find('ul').slideUp();
+            if ($ul.is(':visible')) {
+                $(this).next('ul').slideUp();
+            } else {
+                $(this).next('ul').slideDown();
+            }
+        });
+        //iframe自适应
+        $(window).on('resize',function() {
+            var $content = $('.right-content');
+            $content.height($(this).height() - 92);
+            $content.width($(this).width() - 187 );
+            $content.find('iframe').each(function() {
+                $(this).height($content.height());
+                $(this).width($content.width());
+            });
+        }).resize();
+    });
+</script>

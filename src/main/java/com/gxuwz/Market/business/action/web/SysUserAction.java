@@ -76,7 +76,6 @@ public class SysUserAction extends BaseAction implements Preparable, ModelDriven
 	 * @date 2015.8.8
 	 */
 	public String add() throws Exception{
-		System.out.println("roleId===="+roleId);
 		sysUserService.add(sysUser,roleId);
 		sysUser.setUserName(null);
 		return list();
@@ -120,7 +119,6 @@ public class SysUserAction extends BaseAction implements Preparable, ModelDriven
 	 * @return
 	 */
 	public String openList(){
-		
 		return SUCCESS;
 	}
 	/**
@@ -134,7 +132,7 @@ public class SysUserAction extends BaseAction implements Preparable, ModelDriven
 		roles = sysRoleService.getRoleAll();
 		//获取所有省（直辖市）
 		//comDistricts = comDistrictService.findComDistrictByUpid(0);
-		forwardView = ADD_JSP;
+		setForwardView(ADD_JSP);
 		return SUCCESS;
 	}
 	/**
@@ -156,9 +154,7 @@ public class SysUserAction extends BaseAction implements Preparable, ModelDriven
 			//根据商家（单位）编号查询商家信息
 			//sysMerchantUnit = sysMerchantUnitService.findById(sysUser.getMerchantId());
 		}
-		
-		
-		forwardView = EDIT_JSP;
+		setForwardView(EDIT_JSP);
 		return SUCCESS;
 	}
 	/**
@@ -170,7 +166,7 @@ public class SysUserAction extends BaseAction implements Preparable, ModelDriven
 		sysUser = sysUserService.findById(sysUser.getId());
 		//根据用户编号查询用户角色
 		userRoles = sysUserRoleService.findByUserId(sysUser.getUserId());
-		forwardView = MESSAGE_JSP;
+		setForwardView(MESSAGE_JSP);
 		return SUCCESS;
 		
 	}

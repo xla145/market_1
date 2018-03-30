@@ -38,7 +38,7 @@ public class SysLoginRecordAction extends BaseAction implements Preparable, Mode
 		String logtype = getRequest().getParameter("logtype");
 		getRequest().getSession().setAttribute("logtype", logtype);
 		pageResult = sysLoginRecordService.findAll(getPage(), getRow(),logtype);
-		forwardView = LIST_JSP;
+		setForwardView(LIST_JSP);
 		return SUCCESS;
 	}
 	

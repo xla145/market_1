@@ -7,8 +7,8 @@ import com.gxuwz.core.pagination.Result;
 import com.gxuwz.core.web.action.BaseAction;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -18,26 +18,25 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @date:2015.08.11
  */
 public class SysRightAction extends BaseAction implements Preparable, ModelDriven{
-	
-	protected static final String LIST_JSP = "/WEB-INF/page/web/SysRight_list.jsp";
-	protected static final String ADD_JSP = "/WEB-INF/page/web/SysRight_add.jsp";
-	protected static final String EDIT_JSP = "/WEB-INF/page/web/SysRight_edit.jsp";
-	
-	protected final Log logger=LogFactory.getLog(getClass());
-	
+
+
+	private final Logger logger = LoggerFactory.getLogger(getClass());
+	private static final String LIST_JSP = "/WEB-INF/page/web/SysRight_list.jsp";
+	private static final String ADD_JSP = "/WEB-INF/page/web/SysRight_add.jsp";
+	private static final String EDIT_JSP = "/WEB-INF/page/web/SysRight_edit.jsp";
+
 	private Result<SysRight> pageResult; //分页
 	private SysRight sysRight;
+
 	@Autowired
 	private ISysRightService sysRightService;
-	
+
 	@Override
 	public void prepare() throws Exception {
 		if(null == sysRight){
 			sysRight = new SysRight();
 		}
-		
 	}
-
 	/**
 	 * 列表
 	 * @return
@@ -45,8 +44,7 @@ public class SysRightAction extends BaseAction implements Preparable, ModelDrive
 	 * @author 卢善坚，汪嘉惠
 	 * @date 2015.8.10
 	 */
-	public String list()throws Exception{
-		logger.info("##ysRole列表读取...");
+	public String list() throws Exception{
 		pageResult = sysRightService.find(sysRight, getPage(), getRow());
 		setForwardView(LIST_JSP);
 		return SUCCESS;
@@ -100,7 +98,7 @@ public class SysRightAction extends BaseAction implements Preparable, ModelDrive
 	 * @return
 	 */
 	public String openAdd(){
-		forwardView = ADD_JSP;
+		setForwardView(ADD_JSP) ;
 		return SUCCESS;
 	}
 	/**
@@ -110,19 +108,15 @@ public class SysRightAction extends BaseAction implements Preparable, ModelDrive
 	 * @date 2015.8.10
 	 */
 	public String openEdit(){
-		//System.out.println(sysRight.getRightId());
 		sysRight = sysRightService.findById(sysRight.getRightId());
-		//System.out.println("9999999999999999");
-		forwardView = EDIT_JSP;
+		setForwardView(EDIT_JSP) ;
 		return SUCCESS;
 	}
 	
 	@Override
 	public Object getModel() {
-		
 		return sysRight;
 	}
-
 
 	public Result<SysRight> getPageResult() {
 		return pageResult;
@@ -139,8 +133,5 @@ public class SysRightAction extends BaseAction implements Preparable, ModelDrive
 	public void setSysRight(SysRight sysRight) {
 		this.sysRight = sysRight;
 	}
-
-	
-
 
 }
