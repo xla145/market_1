@@ -1,70 +1,70 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*" errorPage="" %>
 <%@ include file="/WEB-INF/common/common.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>病人列表</title>
-<link href="<%=path%>/css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<%=path%>/js/jquery.js"></script>
-<script type="text/javascript" src="<%=path%>/js/common.js"></script>
-<script type="text/javascript">
-/*
- *_contextPath:上下文路径
- *_modulePath: 模块路径
- */
-var  _contextPath="<%=path%>";
-var  _modulePath=_contextPath+"/sys/";
-$(document).ready(function(){
-  $(".clicks").click(function(){
-   _open(_modulePath+"textures_open.action?view=add");
-  });
-});
-</script>
-<!--  -->
-<script type="text/javascript">
-	//删除
-	$(document).ready(function(){
-			var id;
-			var userId;
-			var url;
-  			$(".tablelinkdelete").click(function(){
- 			id = $(this).attr("id_value");
- 			userId = $(this).attr("userId");
- 			url ="<%=basePath%>/biz/CasPatient_delete.action?id="	+ id + "&userId=" + userId;$(".tip").fadeIn(200);});
+	<meta charset="utf-8">
+	<title>病人列表</title>
+	<link href="<%=path%>/css/style.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="<%=path%>/js/jquery.js"></script>
+	<script type="text/javascript" src="<%=path%>/js/common.js"></script>
+	<script type="text/javascript">
+		/*
+		 *_contextPath:上下文路径
+		 *_modulePath: 模块路径
+		 */
+		var  _contextPath="<%=path%>";
+		var  _modulePath=_contextPath+"/sys/";
+		$(document).ready(function(){
+		  $(".clicks").click(function(){
+		   _open(_modulePath+"textures_open.action?view=add");
+		  });
+		});
+	</script>
+	<!--  -->
+	<script type="text/javascript">
+		//删除
+		$(document).ready(function(){
+				var id;
+				var userId;
+				var url;
+				$(".tablelinkdelete").click(function(){
+				id = $(this).attr("id_value");
+				userId = $(this).attr("userId");
+				url ="<%=basePath%>/biz/CasPatient_delete.action?id="	+ id + "&userId=" + userId;$(".tip").fadeIn(200);});
 
-						$(".tiptop a").click(function() {
-							$(".tip").fadeOut(200);
+							$(".tiptop a").click(function() {
+								$(".tip").fadeOut(200);
+							});
+
+							$(".sure").click(function() {
+								$(".tip").fadeOut(100);
+								window.location.href = url;
+							});
+
+							$(".cancel").click(function() {
+								$(".tip").fadeOut(100);
+							});
+
 						});
+	</script>
+	<style type="text/css">
+		.tablelinkdelete {
+			color: #056dae;
+		}
 
-						$(".sure").click(function() {
-							$(".tip").fadeOut(100);
-							window.location.href = url;
-						});
+		.find {
+			height: 31px;
+			margin-top: -5px;
+			margin-left: -10px;
+		}
 
-						$(".cancel").click(function() {
-							$(".tip").fadeOut(100);
-						});
-
-					});
-</script>
-<style type="text/css">
-.tablelinkdelete {
-	color: #056dae;
-}
-
-.find {
-	height: 31px;
-	margin-top: -5px;
-	margin-left: -10px;
-}
-
-.find1 {
-	height: 31px;
-	margin-right: -14px;
-	margin-top: -5px;
-}
-</style>
+		.find1 {
+			height: 31px;
+			margin-right: -14px;
+			margin-top: -5px;
+		}
+	</style>
 </head>
 <body>
 	<div class="place">

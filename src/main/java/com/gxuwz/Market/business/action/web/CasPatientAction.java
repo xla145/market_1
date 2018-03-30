@@ -24,7 +24,6 @@ public class CasPatientAction extends BaseAction implements Preparable, ModelDri
 	private Result<CasPatient> pageResult;// 分页
 	private int actionState;// 操作状态。1-操作成功（保存成功）
 
-	
 
 	@Override
 	public void prepare() throws Exception {
@@ -63,7 +62,7 @@ public class CasPatientAction extends BaseAction implements Preparable, ModelDri
 	 * @return
 	 */
 	public String openAdd() {
-		forwardView = ADD_JSP;
+		setForwardView(ADD_JSP);
 		return SUCCESS;
 	}
 
@@ -71,22 +70,8 @@ public class CasPatientAction extends BaseAction implements Preparable, ModelDri
 	 * 打开修改信息页面
 	 */
 	public String openEdit() {
-/*// 查询角色的所有信息
-		//patients = casPatientService.getAll();
-		// comDistricts = comDistrictService.findComDistrictByUpid(0);
-		
-		// 根据用户id查询用户信息
-		//casPatient = casPatientService.findByPatientCode(casPatient.getPatientCode());
-		if(null!=casPatient.getPatientCode()){
-			//根据商家（单位）编号查询商家信息
-			casPatient = casPatientService.findByPatientCode(casPatient.getPatientCode());
-		}
-		forwardView = UPDATE_JSP;
-		return SUCCESS;
-	}
-		*/
 		casPatient = casPatientService.findByPatientCode(casPatient.getPatientCode());
-		forwardView = UPDATE_JSP;
+		setForwardView(UPDATE_JSP);
 		return SUCCESS;
 		
     }

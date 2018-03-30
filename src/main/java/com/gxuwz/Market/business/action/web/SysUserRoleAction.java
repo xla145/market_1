@@ -7,45 +7,44 @@ import com.gxuwz.core.web.action.BaseAction;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
-public class SysUserRoleAction  extends BaseAction implements Preparable, ModelDriven{
-	
+public class SysUserRoleAction extends BaseAction implements Preparable, ModelDriven {
 
-	protected static final String LIST_JSP = "/WEB-INF/page/web/SysUserRole_list.jsp";
-	private SysUserRole sysUserRole;
-	private Result<SysUserRole> pageResult;//分页
 
-	public void prepare() throws Exception{
-		if(null == sysUserRole){
-			sysUserRole = new SysUserRole();
-		}
-		}
+    protected static final String LIST_JSP = "/WEB-INF/page/web/SysUserRole_list.jsp";
 
-	/**
-	 * 列表
-	 * @return
-	 * @throws Exception
-	 */
-	public String list()throws Exception{
-		//pageResult = sysUserRoleService.find(sysUserRole, getPage(), getRow());
-		forwardView = LIST_JSP;
-		return SUCCESS;
-	}
-	
-	
-	
-	
-	@Override
-	public Object getModel() {
-		return sysUserRole;
-	}
+    private SysUserRole sysUserRole;
+    private Result<SysUserRole> pageResult;//分页
 
-	public Result<SysUserRole> getPageResult() {
-		return pageResult;
-	}
+    public void prepare() throws Exception {
+        if (null == sysUserRole) {
+            sysUserRole = new SysUserRole();
+        }
+    }
 
-	public void setPageResult(Result<SysUserRole> pageResult) {
-		this.pageResult = pageResult;
-	}
-	
-	
+    /**
+     * 列表
+     *
+     * @return
+     * @throws Exception
+     */
+    public String list() throws Exception {
+        setForwardView(LIST_JSP);
+        return SUCCESS;
+    }
+
+
+    @Override
+    public Object getModel() {
+        return sysUserRole;
+    }
+
+    public Result<SysUserRole> getPageResult() {
+        return pageResult;
+    }
+
+    public void setPageResult(Result<SysUserRole> pageResult) {
+        this.pageResult = pageResult;
+    }
+
+
 }

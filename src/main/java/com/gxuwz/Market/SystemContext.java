@@ -22,7 +22,6 @@ public final class SystemContext {
 	 * @return
 	 */
 	public static String passwdEncryption(String rawPasswd){
-		//System.out.println("rawPasswd="+rawPasswd);
 		String str = encoder.encode(rawPasswd);
 		return str;
 	}

@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="error">
     
     <h2>非常遗憾，您访问的页面不存在！</h2>
-    <div class="reindex"><a href="#" target="_parent">返回首页</a></div>
+    <div class="reindex"><div class="reindex"><a href="${basePath}/front/Login_openIndex.action" target="rightFrame">返回首页</a></div></div>
     
     </div>
 

@@ -11,8 +11,8 @@ import com.gxuwz.core.pagination.Result;
 import com.gxuwz.core.web.action.BaseAction;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -26,11 +26,11 @@ import java.util.List;
 public class SysRoleAction extends BaseAction implements Preparable, ModelDriven{
 
 	private static final long serialVersionUID = -4104125263890869018L;
-	protected static final String LIST_JSP = "/WEB-INF/page/web/SysRole_list.jsp";
-	protected static final String ADD_JSP = "/WEB-INF/page/web/SysRole_add.jsp";
-	protected static final String EDIT_JSP = "/WEB-INF/page/web/SysRole_edit.jsp";
-	
-	protected final Log logger=LogFactory.getLog(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
+	private static final String LIST_JSP = "/WEB-INF/page/web/SysRole_list.jsp";
+	private static final String ADD_JSP = "/WEB-INF/page/web/SysRole_add.jsp";
+	private static final String EDIT_JSP = "/WEB-INF/page/web/SysRole_edit.jsp";
+
 	@Autowired
 	private ISysRoleService sysRoleService;
 	
@@ -41,7 +41,6 @@ public class SysRoleAction extends BaseAction implements Preparable, ModelDriven
 	private ISysRoleRightService sysRoleRightService;
 	
 	private String[] rightId;
-	 
 	private SysRoleRight sysRoleRight;
 	private SysRole sysRole;
 	private Result<SysRole> pageResult; //分页
@@ -63,8 +62,6 @@ public class SysRoleAction extends BaseAction implements Preparable, ModelDriven
 	 * @throws Exception
 	 */
 	public String add() throws Exception{
-		//System.out.println(sysRole.getRoleName());
-		//System.out.println("rightId.length="+rightId.length);
 		sysRoleService.add(sysRole,rightId);
 		sysRole.setRoleName(null);
 		return list();
@@ -137,7 +134,7 @@ public class SysRoleAction extends BaseAction implements Preparable, ModelDriven
 		sysRights = sysRightService.getRightAll();
 		//根据角色编号查询角色信息
 		sysRole = sysRoleService.findById(sysRole.getRoleId());
-		forwardView = EDIT_JSP;
+		setForwardView(EDIT_JSP);
 		return SUCCESS;
 	}
 	

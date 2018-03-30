@@ -10,9 +10,9 @@
     <script language="JavaScript" src="js/jquery.js"></script>
     <script language="javascript">
         $(function () {
-            $('.loginbox').css({'position': 'absolute', 'left': ($(window).width() - 692) / 2});
+            $('.loginbox').css({'position': 'absolute', 'left': ($(window).width() - 692) / 2 ,'top' :($(window).height() -436) / 2});
             $(window).resize(function () {
-                $('.loginbox').css({'position': 'absolute', 'left': ($(window).width() - 692) / 2});
+                $('.loginbox').css({'position': 'absolute', 'left': ($(window).width() - 692) / 2,'top' :($(window).height() -436) / 2});
             })
         });
     </script>

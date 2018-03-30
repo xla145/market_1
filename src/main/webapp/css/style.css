@@ -7,7 +7,7 @@ body{font-family:'微软雅黑'; margin:0 auto;min-width:980px;}
 ul{display:block;margin:0;padding:0;list-style:none;}
 li{display:block;margin:0;padding:0;list-style: none;}
 img{border:0;}
-dl,dt,dd,span{margin:0;padding:0;display:block;}
+dl,dt,dd{margin:0;padding:0;display:block;}
 a,a:focus{text-decoration:none;color:#000;outline:none;blr:expression(this.onFocus=this.blur());}
 a:hover{color:#00a4ac;text-decoration:none;}
 table{border-collapse:collapse;border-spacing: 0;}
@@ -30,7 +30,7 @@ h2{font-weight:normal;}
 .logintop ul li a:hover{color:#fff;}
 .loginbody{background:url(../images/loginbg3.png) no-repeat center center; width:100%; height:585px; overflow:hidden; position:absolute; top:47px;}
 .systemlogo{background:url(../images/loginlogo.png) no-repeat center;width:100%; height:71px; margin-top:75px;}
-.loginbox{width:692px; height:336px; background:url(../images/logininfo.png) no-repeat; margin-top:30px;}
+.loginbox{width:692px; height:336px; background:url(../images/logininfo.png) no-repeat;}
 .loginbox ul{margin-top:88px; margin-left:285px;}
 .loginbox ul li{margin-bottom:25px;}
 .loginbox ul li label{color:#687f92; padding-left:25px;}
@@ -46,6 +46,7 @@ h2{font-weight:normal;}
 
 
 /*top.html*/
+.main {width: 100%;height: auto;}
 .header{height:88px;}
 .topleft{height:88px;background:url(../images/topleft.jpg) no-repeat;float:left; width:300px;}
 .topleft img{margin-top:12px;margin-left:10px;}
@@ -71,16 +72,17 @@ h2{font-weight:normal;}
 .user i{display:inline-block;margin-right:5px;font-style:normal;line-height:30px; font-size:14px;color:#b8ceda;}
 
 /*left.html*/
+.main .left{width: 187px;float: left;}
 .lefttop{background:url(../images/lefttop.gif) repeat-x;height:40px;color:#fff;font-size:14px;line-height:40px;}
 .lefttop span{margin-left:8px; margin-top:10px;margin-right:8px; background:url(../images/leftico.png) no-repeat; width:20px; height:21px;float:left;}
 .leftmenu{width:187px;padding-bottom: 9999px;margin-bottom: -9999px; overflow:hidden; background:url(../images/leftline.gif) repeat-y right;}
 .leftmenu dd{background:url(../images/leftmenubg.gif) repeat-x;line-height:35px;font-weight:bold;font-size:14px;border-right:solid 1px #b7d5df;}
-.leftmenu dd span{float:left;margin:10px 8px 0 12px;}
+.leftmenu dd span{margin:3px 8px 0 12px;}
 .leftmenu dd .menuson{display:none;}
 .leftmenu dd:first-child .menuson{display:block;}
 .menuson {line-height:30px; font-weight:normal; }
-.menuson li{cursor:pointer;}
-.menuson li.active{position:relative; background:url(../images/libg.png) repeat-x; line-height:30px; color:#fff;}
+.menuson li{cursor:pointer;position:relative;}
+.menuson li.active{background:url(../images/libg.png) repeat-x; line-height:30px; color:#fff;}
 .menuson li cite{display:block; float:left; margin-left:32px; background:url(../images/list.gif) no-repeat; width:16px; height:16px; margin-top:7px;}
 .menuson li.active cite{background:url(../images/list1.gif) no-repeat;}
 .menuson li.active i{display:block; background:url(../images/sj.png) no-repeat; width:6px; height:11px; position:absolute; right:0;z-index:10000; top:9px; right:-1px;}
@@ -92,6 +94,7 @@ h1 { font-size: 14px; font-family: "microsoft YaHei", "黑体", "微软雅黑"; 
 
 
 /*right.html*/
+.main .right-content {float: right;left: 187px;position: absolute;right: 0;top: 88px;bottom: 0;z-index: 998;width: auto;overflow: hidden;overflow-y: auto;box-sizing: border-box;}
 .place{height:40px; background:url(../images/righttop.gif) repeat-x;}
 .place span{line-height:40px; font-weight:bold;float:left; margin-left:12px;}
 .placeul li{float:left; line-height:40px; padding-left:7px; padding-right:12px; background:url(../images/rlist.gif) no-repeat right;}
@@ -226,7 +229,7 @@ h1 { font-size: 14px; font-family: "microsoft YaHei", "黑体", "微软雅黑"; 
 .tooladd{margin-top:25px; width:20px; height:20px; float:left; display:block;}
 
 /*error 404*/
-.error{background:url(../images/404.png) no-repeat; width:490px; margin-top:75px;padding-top:65px;}
+.error{background:url(../images/404.png) no-repeat; width:490px;padding-top:65px;margin:30px auto;}
 .error h2{font-size:22px; padding-left:154px;}
 .error p{padding-left:154px; line-height:35px;color:#717678;}
 .reindex{padding-left:154px;}
