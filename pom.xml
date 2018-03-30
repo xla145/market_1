@@ -50,7 +50,7 @@
         <freemarker.version>2.3.23</freemarker.version>
         <slf4j-simple.version>1.7.25</slf4j-simple.version>
         <log4j.vesion>1.2.17</log4j.vesion>
-        <mysql-connector-java.version>5.1.16</mysql-connector-java.version>
+        <mysql-connector-java.version>5.1.36</mysql-connector-java.version>
         <hibernate-validator-vesion>3.6.10.Final</hibernate-validator-vesion>
     </properties>
     <dependencies>
