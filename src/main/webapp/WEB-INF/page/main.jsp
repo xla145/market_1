@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html; charset=utf-8" language="java" import="java.sql.*" errorPage="" %>
+﻿<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*" errorPage="" %>
 <%@ include file="/WEB-INF/common/common.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -25,19 +25,6 @@
         </div>
     </body>
 </html>
-<style type="text/css">
-    .main {
-        width: 100%;
-        height: auto;
-    }
-    .left {
-        width: 187px;
-        float: left;
-    }
-    .right-content {
-        float: right;
-    }
-</style>
 <script type="text/javascript">
     $(function() {
         //导航切换
@@ -57,8 +44,6 @@
         //iframe自适应
         $(window).on('resize',function() {
             var $content = $('.right-content');
-            $content.height($(this).height() - 92);
-            $content.width($(this).width() - 187 );
             $content.find('iframe').each(function() {
                 $(this).height($content.height());
                 $(this).width($content.width());

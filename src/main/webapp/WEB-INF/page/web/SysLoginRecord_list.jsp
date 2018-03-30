@@ -1,74 +1,70 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*" errorPage="" %>
 <%@ include file="/WEB-INF/common/common.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>用户登录记录列表</title>
-<link href="<%=path %>/css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<%=path %>/js/jquery.js"></script>
-<script type="text/javascript" src="<%=path %>/js/common.js"></script>
-<script type="text/javascript">
-/*
- *_contextPath:上下文路径
- *_modulePath: 模块路径
- */
-var  _contextPath="<%=path%>";
-var  _modulePath=_contextPath+"/sys/";
-$(document).ready(function(){
-  $(".clicks").click(function(){
-   _open(_modulePath+"textures_open.action?view=add");
-  });
-});
-</script>
+    <meta charset="utf-8">
+    <title>用户登录记录列表</title>
+    <link href="<%=path %>/css/style.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="<%=path %>/js/jquery.js"></script>
+    <script type="text/javascript" src="<%=path %>/js/common.js"></script>
+    <script type="text/javascript">
+        /*
+         *_contextPath:上下文路径
+         *_modulePath: 模块路径
+         */
+        var  _contextPath="<%=path%>";
+        var  _modulePath=_contextPath+"/sys/";
+        $(document).ready(function(){
+          $(".clicks").click(function(){
+           _open(_modulePath+"textures_open.action?view=add");
+          });
+        });
+    </script>
 
-<script type="text/javascript">
-	//删除
-	$(document).ready(function(){
-			var id;
-			var url;
-  			$(".tablelink").click(function(){
- 			id = $(this).attr("idValue");
- 			url ="<%= basePath%>/biz/SysLoginRecord_delete.action?id="+id;
- 			 $(".tip").fadeIn(200);
- 			 });
-  
- 			 $(".tiptop a").click(function(){
- 			 $(".tip").fadeOut(200);
-			});
+    <script type="text/javascript">
+        //删除
+        $(document).ready(function(){
+                var id;
+                var url;
+                $(".tablelink").click(function(){
+                id = $(this).attr("idValue");
+                url ="<%= basePath%>/biz/SysLoginRecord_delete.action?id="+id;
+                 $(".tip").fadeIn(200);
+                 });
 
-  			$(".sure").click(function(){
-  			$(".tip").fadeOut(100);
-  					window.location.href=url;
-			});
+                 $(".tiptop a").click(function(){
+                 $(".tip").fadeOut(200);
+                });
 
-				  $(".cancel").click(function(){
-				  $(".tip").fadeOut(100);
-				});
-		
-	});
-</script>
+                $(".sure").click(function(){
+                $(".tip").fadeOut(100);
+                        window.location.href=url;
+                });
 
-<!-- 通过选择日志类型来或者不同的日志列表 -->
-<script type="text/javascript">
-	function skinhref(logtype)
-	{
-	
-		//跳转到日志的list方法
-		var url = "<%=basePath%>/biz/SysLoginRecord_list.action?logtype="+logtype;
-		window.location.href=url;
-	}
+                      $(".cancel").click(function(){
+                      $(".tip").fadeOut(100);
+                    });
 
-</script>
+        });
+    </script>
 
-<style type="text/css">
-.tablelinkdelete{color:#056dae;}
-</style>
+    <!-- 通过选择日志类型来或者不同的日志列表 -->
+    <script type="text/javascript">
+        function skinhref(logtype)
+        {
+
+            //跳转到日志的list方法
+            var url = "<%=basePath%>/biz/SysLoginRecord_list.action?logtype="+logtype;
+            window.location.href=url;
+        }
+
+    </script>
 </head>
 
 <body>
 <% 
-		String type = (String)request.getSession().getAttribute("logtype");
+    String type = (String)request.getSession().getAttribute("logtype");
  %>	
 <div class="place">
     <span>位置：</span>
@@ -81,11 +77,6 @@ $(document).ready(function(){
 <div class="formbody">
     <div id="usual1" class="usual">
       <div id="tab2" class="tabson">
-<%--     	<ul class="seachform">
-            <li class="clickk"><span><img src="<%=path%>/images/t01.png" /></span><a href="<%= basePath%>/biz/ComTag_openAdd.action">添加</a></li>
-            <li class="clickk"><span><img src="<%=path%>/images/t02.png" /></span>修改</li>
-            <li class="clickk"><span><img src="<%=path%>/images/t03.png" /></span>删除</li>
-        </ul> --%>
     <c:set var="logtype"  value="<%=type %>"/> 
     <input type="radio" value="0" name="logtype" onclick="skinhref('0')"<c:if test="${logtype==0 || null==logtype}">checked="checked"</c:if>/>全部 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <input type="radio" value="1" name="logtype" onclick="skinhref('1')"<c:if test="${logtype==1}">checked="checked"</c:if>/>登录  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

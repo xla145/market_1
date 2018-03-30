@@ -1,43 +1,42 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*" errorPage="" %>
 <%@ include file="/WEB-INF/common/common.jsp"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>角色权限-新增</title>
-<link href="<%=path %>/css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<%=path %>/third/jquery-validation-1.14.0/lib/jquery.js"></script>
-<script type="text/javascript" src="<%=path %>/js/common.js"></script>
-<script>
-var  _contextPath="<%=path%>";
-var  _modulePath=_contextPath+"/sys/";
+    <meta charset="utf-8">
+    <title>角色权限-新增</title>
+    <link href="<%=path %>/css/style.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="<%=path %>/third/jquery-validation-1.14.0/lib/jquery.js"></script>
+    <script type="text/javascript" src="<%=path %>/js/common.js"></script>
+    <script>
+        var  _contextPath="<%=path%>";
+        var  _modulePath=_contextPath+"/sys/";
 
-$(document).ready(function(e) {
-    $(".btn").click(function(){
-		_sbmForm(_modulePath+"textures_add.action?view=list","");
-		});
-});
-
-</script>
-<!-- 验证权限编号是否已存在 -->
-<script type="text/javascript">
-	$(function(){
-		var url = "/front/SysJson_checkRightName.action";
-		$("#rightId").blur(function(){//给角色编号添加失去焦点事件
-			var id = $("input[name='rightId']").val();//获取角色编号值 
-			$.post(url,{"checkName":id},function(data){//发送请求验证角色编号 
-				if(data == "no"){//如果返回 no,提示已存在 
-					$("#gradeInfo").html("<font color=\"red\">您输入的编号存在！请重新输入！</font>"); 
-				}else{//否则隐藏 
-					$("#gradeInfo").hide();
-				}
-			},"json");
-		});
-	});
-</script>
-<script type="text/javascript" src="<%= basePath%>third/jquery-validation-1.14.0/dist/jquery.validate.js"></script>
-<script type="text/javascript" src="<%= basePath%>third/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
-<script type="text/javascript">
+        $(document).ready(function(e) {
+            $(".btn").click(function(){
+                _sbmForm(_modulePath+"textures_add.action?view=list","");
+                });
+        });
+    </script>
+    <!-- 验证权限编号是否已存在 -->
+    <script type="text/javascript">
+        $(function(){
+            var url = "/front/SysJson_checkRightName.action";
+            $("#rightId").blur(function(){//给角色编号添加失去焦点事件
+                var id = $("input[name='rightId']").val();//获取角色编号值
+                $.post(url,{"checkName":id},function(data){//发送请求验证角色编号
+                    if(data == "no"){//如果返回 no,提示已存在
+                        $("#gradeInfo").html("<font color=\"red\">您输入的编号存在！请重新输入！</font>");
+                    }else{//否则隐藏
+                        $("#gradeInfo").hide();
+                    }
+                },"json");
+            });
+        });
+    </script>
+    <script type="text/javascript" src="<%= basePath%>third/jquery-validation-1.14.0/dist/jquery.validate.js"></script>
+    <script type="text/javascript" src="<%= basePath%>third/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+    <script type="text/javascript">
         $(function(){
 			
 			//如果是新增成功，会返回1，如果是1，则提示保存成功
@@ -95,7 +94,7 @@ $(document).ready(function(e) {
                   }
             });    
         });
-        </script>
+    </script>
 </head>
 <body>
  
