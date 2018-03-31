@@ -39,6 +39,7 @@ public class CasPatientAction extends BaseAction implements Preparable, ModelDri
 	 */
 	public String add() throws Exception {
 		casPatientService.add(casPatient);
+		casPatient = new CasPatient();
 		return list();
 	}
 
@@ -49,8 +50,8 @@ public class CasPatientAction extends BaseAction implements Preparable, ModelDri
 	 * @throws Exception
 	 */
 	public String list() throws Exception {
+		System.out.println(casPatient.getPatientName());
 		pageResult = casPatientService.find(casPatient, getPage(), getRow());
-		System.out.println(pageResult.getData());
 		setForwardView(LIST_JSP);
 		return SUCCESS;
 	}
@@ -78,6 +79,17 @@ public class CasPatientAction extends BaseAction implements Preparable, ModelDri
 	
 	public String update() throws Exception{
 		casPatientService.update(casPatient);
+		return list();
+	}
+	
+	/**
+	 * 删除
+	 * @return
+	 * @throws Exception
+	 */
+	public String delete() throws Exception{
+		String patientCode = getParameters("patientCode", null);
+		casPatientService.delete(patientCode);
 		return list();
 	}
 	

@@ -85,4 +85,13 @@ public class CasPatientServiceImpl implements ICasPatientService {
 		casPatientDAO.update(casPatient);
 
 	}
+
+	/**
+	 * 删除功能（软删除）
+	 * @param patientCode
+	 */
+	@Override
+	public void delete(String patientCode) {
+		casPatientDAO.delete(patientCode);
+	}
 }

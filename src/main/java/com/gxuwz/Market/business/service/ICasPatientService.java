@@ -24,11 +24,16 @@ public interface ICasPatientService {
 	 * @return
 	 */
 	public Result<CasPatient> find(CasPatient casPatient, int page, int row);
+	
 	public CasPatient findByPatientName(String patientName);
 	public CasPatient findByPatientCode(String patientCode);
-	public List<CasPatient> getAll() ;
-
-
+	public List<CasPatient> getAll();
 	public void update(CasPatient casPatient);
+	
+	/**
+	 * 病人的删除
+	 * @param patientCode
+	 */
+	public void delete(String patientCode);
 
 }

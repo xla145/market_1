@@ -25,14 +25,10 @@
 	<script type="text/javascript">
 		//删除
 		$(document).ready(function(){
-				var id;
-				var userId;
-				var url;
+				var url ;
 				$(".tablelinkdelete").click(function(){
-				id = $(this).attr("id_value");
-				userId = $(this).attr("userId");
-				url ="<%=basePath%>/biz/CasPatient_delete.action?id="	+ id + "&userId=" + userId;$(".tip").fadeIn(200);});
-
+				var patientCode = $(this).attr("patientCode");
+				url = "<%=basePath%>/biz/CasPatient_delete.action?patientCode=" + patientCode;$(".tip").fadeIn(200);});
 							$(".tiptop a").click(function() {
 								$(".tip").fadeOut(200);
 							});
@@ -79,20 +75,17 @@
 	<div class="formbody">
 		<div id="usual1" class="usual">
 			<div id="tab2" class="tabson">
-
 				<form action="<%=basePath%>/biz/CasPatient_list.action"
 					method="post" target="rightFrame">
 					<ul class="seachform">
-						<li><label>综合查询</label><input class="scinput"
-							name="sysUser.userName" placeholder="请输入病人姓名称或民族" /></li>
+						<li><label>查询</label><input class="scinput"
+							name="casPatient.patientName" placeholder="请输入病人姓名" /></li>
+						<li><input class="scinput"
+							name="casPatient.patientNation" placeholder="请输入病人民族" /></li>
 						<li><input name="" type="submit" class="scbtn" value="查询" /></li>
 						<li class="clickk"><span><img
 								src="<%=path%>/images/t01.png" /></span><a
-							href="<%=basePath%>/biz/CasPatient_openAdd.action">添加</a></li>
-						<li class="clickk"><span><img
-								src="<%=path%>/images/t02.png" /></span>修改</li>
-						<li class="clickk"><span><img
-								src="<%=path%>/images/t03.png" /></span>删除</li>
+							href="<%=basePath%>/biz/CasPatient_openAdd.action">添加病人</a></li>
 					</ul>
 				</form>
 				<table class="tablelist">
@@ -136,7 +129,7 @@
 								<p:permissions menu="deleteUser,editUser">
 									<td><p:permissions right="deleteUser">
 											<a href="javascript:;" class="tablelinkdelete"
-												id_value="${id}" userId="${userId}"> 删除</a>&nbsp;&nbsp;
+												 patientCode="${patientCode}"> 删除</a>&nbsp;&nbsp;
 	     	</p:permissions> <p:permissions right="editUser">
 											<a
 												href="<%= basePath%>/biz/CasPatient_openEdit.action?patientCode=${patientCode}"

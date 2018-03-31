@@ -1,5 +1,6 @@
 package com.gxuwz.Market.business.dao;
 
+import com.gxuwz.Market.business.constant.CasPatientConstant;
 import com.gxuwz.Market.business.entity.CasPatient;
 import com.gxuwz.core.dao.impl.BaseDaoImpl;
 import com.gxuwz.core.pagination.Result;
@@ -33,12 +34,16 @@ public class CasPatientDAO extends BaseDaoImpl<CasPatient>{
 	 * @return
 	 */
 	public Result<CasPatient> find(CasPatient casPatient, int page, int size){
-		String queryString = "from CasPatient where 1=1";
+		String queryString = "from CasPatient where 1=1 AND status != "+CasPatientConstant.CAS_PATIENT_DEL_STATUS;
+		// 按名称搜索
 		if(casPatient.getPatientName() != null){
 			queryString = queryString + " and patient_name like '%"+casPatient.getPatientName()+"%'";
 		}
+		if (casPatient.getPatientNation() != null) {
+			queryString = queryString + " and patient_nation like '%"+casPatient.getPatientNation()+"%'";
+		}
 		int start=(page-1)*size;
-		int limit =size;
+		int limit = size;
 		Result<CasPatient> data =  (Result<CasPatient> )super.find(queryString, null, null, start, limit);
 		return data;
 	}
@@ -81,5 +86,15 @@ public class CasPatientDAO extends BaseDaoImpl<CasPatient>{
 		//查询获取全部的数据
 		List<CasPatient> list=(List<CasPatient>) super.findByHql("from CasPatient");
 		return list;
+    }
+    
+    public void delete (String patientCode) {
+    	String hql = "UPDATE CasPatient SET status=?,updateTime=now() WHERE patientCode =?";
+    	try {
+    		super.update(hql,CasPatientConstant.CAS_PATIENT_DEL_STATUS, patientCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
     }
 }
