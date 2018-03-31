@@ -39,6 +39,7 @@ public class CasPatientDAO extends BaseDaoImpl<CasPatient>{
 		if(casPatient.getPatientName() != null){
 			queryString = queryString + " and patient_name like '%"+casPatient.getPatientName()+"%'";
 		}
+		//按民族搜索
 		if (casPatient.getPatientNation() != null) {
 			queryString = queryString + " and patient_nation like '%"+casPatient.getPatientNation()+"%'";
 		}

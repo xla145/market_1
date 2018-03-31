@@ -50,7 +50,7 @@ public class CasPatientAction extends BaseAction implements Preparable, ModelDri
 	 * @throws Exception
 	 */
 	public String list() throws Exception {
-		System.out.println(casPatient.getPatientName());
+		//System.out.println(casPatient.getPatientName());
 		pageResult = casPatientService.find(casPatient, getPage(), getRow());
 		setForwardView(LIST_JSP);
 		return SUCCESS;
