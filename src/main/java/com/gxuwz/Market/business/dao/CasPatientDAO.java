@@ -90,7 +90,8 @@ public class CasPatientDAO extends BaseDaoImpl<CasPatient>{
     }
     
     public void delete (String patientCode) {
-    	String hql = "UPDATE CasPatient SET status=?,updateTime=now() WHERE patientCode =?";
+ 
+    	String hql = "UPDATE cas_patient SET status=?,updateTime=now() WHERE patientCode =?";
     	try {
     		super.update(hql,CasPatientConstant.CAS_PATIENT_DEL_STATUS, patientCode);
 		} catch (Exception e) {
