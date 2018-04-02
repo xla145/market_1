@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>修改病人信息</</title>
+	<title>修改病人信息</title>
 	<link href="<%=path%>/css/style.css" rel="stylesheet" type="text/css" />
 	<link href="<%=path%>/css/select.css" rel="stylesheet" type="text/css" />
 </head>

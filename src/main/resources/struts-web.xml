@@ -18,7 +18,6 @@
 			<!-- 后续改为以下方式 -->
 			<!-- <result name="*" type="direct">通过Action直接返回，这一行无需修改</result> -->
 		</action>
-		
 		 
 	</package>
 	
