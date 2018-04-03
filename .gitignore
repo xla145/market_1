@@ -1,1 +1,9 @@
 /target/
+/.classpath
+/.project
+.classpath
+.project
+.settings/
+src/test/
+/market.iml
+/.idea/
