@@ -55,6 +55,7 @@ public class CasPatientAction extends BaseAction implements Preparable, ModelDri
 		setForwardView(LIST_JSP);
 		return SUCCESS;
 	}
+	
 
 
 	/**

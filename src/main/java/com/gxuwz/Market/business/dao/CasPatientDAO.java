@@ -23,7 +23,7 @@ public class CasPatientDAO extends BaseDaoImpl<CasPatient>{
 		if ( cas == null ) {
 			return false;
 		}
-		return false;
+		return true;
 	}
 
 

@@ -24,6 +24,7 @@ public class CasCaseAction extends BaseAction implements Preparable, ModelDriven
 	private Result<CasPatient> pageResult;// 分页
 	
 	public String openAdd() {
+		pageResult = casPatientService.find(casPatient, getPage(), getRow());
 		setForwardView(ADD_JSP);
 		return SUCCESS;
 	}
@@ -31,20 +32,25 @@ public class CasCaseAction extends BaseAction implements Preparable, ModelDriven
 		setForwardView(MESSAGE_JSP);
 		return SUCCESS;
 	}
-	
+	public String list() throws Exception {
+		//System.out.println(casPatient.getPatientName());
+		pageResult = casPatientService.find(casPatient, getPage(), getRow());
+		setForwardView(LIST_JSP);
+		return SUCCESS;
+	}
 	
 	@Override
 	public Object getModel() {
 		// TODO Auto-generated method stub
 		return casCase;
 	}
-	public String list() throws Exception {
+	/*public String list() throws Exception {
 		//System.out.println(casPatient.getPatientName());
 		//pageResult = casPatientService.find(casPatient, getPage(), getRow());
 		pageResult = casPatientService.find(casPatient, getPage(), getRow());
 		setForwardView(LIST_JSP);
 		return SUCCESS;
-	}
+	}*/
 
 	@Override
 	public void prepare() throws Exception {

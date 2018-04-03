@@ -33,16 +33,60 @@
 	</div>
 
 	<div class="formbody">
-				<form action="<%=basePath%>/biz/CasPatient_openAdd.action"
+				<form action="<%=basePath%>/biz/CasCase_openAdd.action"
 					method="post" target="rightFrame">
 					<div>
 					<ul class="seachform">
 						<li><label>病人</label><input class="scinput"
 							name="casPatient.patientName" placeholder="请输入病人姓名" /></li>
-						<li><input name="" type="submit" class="scbtn" value="新增病人" /></li>
+						<li><input name="" type="submit" class="scbtn" value="新增病例" /></li>
 						<li class="clickk"><span><img src="<%=path%>/images/t01.png" /></span><a
 							href="<%=basePath%>/biz/CasPatient_openAdd.action">新增病人</a></li>
 					 </ul>
+					 <table class="tablelist">
+					<thead>
+						<tr>
+
+							<th><input name="" type="checkbox" value=""
+								checked="checked" /></th>
+							<th>序号<i class="sort"><img src="<%=path%>/images/px.gif" /></i></th>
+							<th>病人编号</th>
+							<th>姓名</th>
+							<th>性别</th>
+							<th>年龄</th>
+							<th>民族</th>
+							<th>婚姻状况</th>
+							<th>出生地</th>
+							<th>职业</th>
+							<th>联系方式</th>	
+							<th>操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<s:iterator value="pageResult.data" status="status" var="patient">
+
+							<tr>
+
+								<td><input name="" type="checkbox" value="" /></td>
+								<td><s:property value="#status.index+1" /></td>
+								<td>${patientCode}</td>
+								<td>${patientName}</td>
+								<td><s:if test="#patient.patientSex==0"> 男</s:if>
+									<s:else>女</s:else></td>
+								<td>${patientAge}</td>
+								<td>${patientNation}</td>
+								<td><s:if test="#patient.patientMarriage==1">已婚</s:if> <s:else>未婚</s:else></td>
+								<td>${patientBirthplace}</td>
+								<td>${patientJob}</td>
+								<td>${patientPhone}</td>
+								<td><p:permissions right="deleteUser">
+											<a href="<%=basePath%>/biz/CasCase_openMessage.action?patientCode=${patientCode}"
+												class="tablelink">添加病例</a>
+										</p:permissions></td>
+							</tr>
+						</s:iterator>
+					</tbody>
+				</table>
 					</div>
 				</form>
 				</div>

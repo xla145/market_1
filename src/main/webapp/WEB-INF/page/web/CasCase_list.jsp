@@ -35,7 +35,7 @@
 	<div class="formbody">
 		<div id="usual1" class="usual">
 			<div id="tab2" class="tabson">
-				<form action="<%=basePath%>/biz/CasPatient_list.action"
+				<form action="<%=basePath%>/biz/CasCase_list.action"
 					method="post" target="rightFrame">
 					<ul class="seachform">
 						<li><label>查询</label><input class="scinput"
