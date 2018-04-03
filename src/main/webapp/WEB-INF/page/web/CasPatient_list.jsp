@@ -78,14 +78,11 @@
 				<form action="<%=basePath%>/biz/CasPatient_list.action"
 					method="post" target="rightFrame">
 					<ul class="seachform">
-						<li><label>查询</label><input class="scinput"
+						<li><label>查询：</label><input class="scinput"
 							name="casPatient.patientName" placeholder="请输入病人姓名" /></li>
 						<li><input class="scinput"
 							name="casPatient.patientNation" placeholder="请输入病人民族" /></li>
 						<li><input name="" type="submit" class="scbtn" value="查询" /></li>
-						<li class="clickk"><span><img
-								src="<%=path%>/images/t01.png" /></span><a
-							href="<%=basePath%>/biz/CasPatient_openAdd.action">添加病人</a></li>
 					</ul>
 				</form>
 				<table class="tablelist">
@@ -146,7 +143,7 @@
 		</div>
 		<%
 			//查询的url地址，统一写
-			String listActionURL = basePath + "/biz/SysUser_list.action";
+			String listActionURL = basePath + "/biz/CasPatient_list.action";
 		%>
 
 		<script type="text/javascript">

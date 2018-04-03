@@ -17,7 +17,7 @@
                 </p:permissions>
                 <p:permissions menu="addRole,editRole,deleteRole">
                     <li>
-                        <cite></cite><a href="<%= basePath%>/biz/CasPatient_list.action"
+                        <cite></cite><a href="<%=basePath%>/biz/CasPatient_list.action"
                                         target="rightFrame">病人管理</a><i></i>
                     </li>
                 </p:permissions>
@@ -30,7 +30,7 @@
             <ul class="menuson">
                 <p:permissions menu="addUser,editUser,deleteUsere">
                     <li>
-                        <cite></cite><a href="<%= basePath%>/biz/SysUser_list.action"
+                        <cite></cite><a href="<%=basePath%>/biz/SysUser_list.action"
                                         target="rightFrame">用户管理</a><i></i>
                     </li>
                 </p:permissions>

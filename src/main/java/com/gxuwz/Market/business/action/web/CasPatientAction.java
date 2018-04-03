@@ -22,7 +22,7 @@ public class CasPatientAction extends BaseAction implements Preparable, ModelDri
 
 	private CasPatient casPatient;// 病人模型
 	private Result<CasPatient> pageResult;// 分页
-	private int actionState;// 操作状态。1-操作成功（保存成功）
+	//private int actionState;// 操作状态。1-操作成功（保存成功）
 
 
 	@Override

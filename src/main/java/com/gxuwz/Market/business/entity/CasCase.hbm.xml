@@ -11,9 +11,11 @@
             <generator class="assigned" />
         </id>
         <property name="patientCode" type="java.lang.String">
-            <column name="patient_code" />
+            <column name="patient_code" >
+            <comment>病人编号</comment>
+            </column>
         </property>
-        <property name="visitime" type="java.sql.Timestamp">
+        <property name="visitime" type="java.util.Date">
             <column name="visitime" >
                 <comment>就诊时间</comment>
             </column>
@@ -38,10 +40,10 @@
                 <comment>舌体</comment>
             </column>
         </property>
-        <property name="sixChannel" type="java.lang.String">
+        <property name="sixChannel" type="java.lang.Integer">
             <column name="six_channel" />
         </property>
-        <property name="face" type="java.lang.String">
+        <property name="face" type="java.lang.Integer">
             <column name="face">
                 <comment>面部皮肤</comment>
             </column>

@@ -1,6 +1,6 @@
 package com.gxuwz.Market.business.entity;
 
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * CasCase entity. @author MyEclipse Persistence Tools
@@ -12,13 +12,13 @@ public class CasCase implements java.io.Serializable {
 
 	private Integer id;
 	private String patientCode;
-	private Timestamp visitime;
+	private Date visitime;
 	private String pulse;
 	private String tongueQuality;
 	private String fur;
 	private String tongue;
-	private String sixChannel;
-	private String face;
+	private Integer sixChannel;
+	private Integer face;
 	private String cough;
 	private String excrement;
 	private String pee;
@@ -46,8 +46,8 @@ public class CasCase implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public CasCase(Integer id, String patientCode, Timestamp visitime, String pulse, String tongueQuality, String fur,
-			String tongue, String sixChannel, String face, String cough, String excrement, String pee, String coldHot,
+	public CasCase(Integer id, String patientCode, Date visitime, String pulse, String tongueQuality, String fur,
+			String tongue, Integer sixChannel, Integer face, String cough, String excrement, String pee, String coldHot,
 			String sweat, String headBody, String diet, String thirsty, String ear, String earOil, String menstruation,
 			String liverFunction, String renalFunction, String bloodRoutine) {
 		this.id = id;
@@ -93,14 +93,6 @@ public class CasCase implements java.io.Serializable {
 		this.patientCode = patientCode;
 	}
 
-	public Timestamp getVisitime() {
-		return this.visitime;
-	}
-
-	public void setVisitime(Timestamp visitime) {
-		this.visitime = visitime;
-	}
-
 	public String getPulse() {
 		return this.pulse;
 	}
@@ -133,21 +125,7 @@ public class CasCase implements java.io.Serializable {
 		this.tongue = tongue;
 	}
 
-	public String getSixChannel() {
-		return this.sixChannel;
-	}
 
-	public void setSixChannel(String sixChannel) {
-		this.sixChannel = sixChannel;
-	}
-
-	public String getFace() {
-		return this.face;
-	}
-
-	public void setFace(String face) {
-		this.face = face;
-	}
 
 	public String getCough() {
 		return this.cough;
@@ -155,6 +133,30 @@ public class CasCase implements java.io.Serializable {
 
 	public void setCough(String cough) {
 		this.cough = cough;
+	}
+
+	public Date getVisitime() {
+		return visitime;
+	}
+
+	public void setVisitime(Date visitime) {
+		this.visitime = visitime;
+	}
+
+	public Integer getSixChannel() {
+		return sixChannel;
+	}
+
+	public void setSixChannel(Integer sixChannel) {
+		this.sixChannel = sixChannel;
+	}
+
+	public Integer getFace() {
+		return face;
+	}
+
+	public void setFace(Integer face) {
+		this.face = face;
 	}
 
 	public String getExcrement() {
