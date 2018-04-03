@@ -12,27 +12,27 @@ public class CasCase implements java.io.Serializable {
 
 	private Integer id;
 	private String patientCode;
-	private Date visitime;
-	private String pulse;
-	private String tongueQuality;
-	private String fur;
-	private String tongue;
-	private Integer sixChannel;
-	private Integer face;
-	private String cough;
-	private String excrement;
-	private String pee;
-	private String coldHot;
-	private String sweat;
-	private String headBody;
-	private String diet;
-	private String thirsty;
-	private String ear;
-	private String earOil;
-	private String menstruation;
-	private String liverFunction;
-	private String renalFunction;
-	private String bloodRoutine;
+	private Date visitime; // 就诊时间
+	private String pulse; //脉象
+	private String tongueQuality;//舌质
+	private String fur;//舌苔
+	private String tongue;//舌体
+	private Integer sixChannel;//六经症状 太阴 少阴 厥阴 太阳 阳明 少阳
+	private Integer face;//面部皮肤 青  赤 黄 白 黑
+	private String cough;// 咳嗽
+	private String excrement;//大便
+	private String pee;// 小便
+	private String coldHot;//冷热
+	private String sweat;// 汗
+	private String headBody;// 头身
+	private String diet;// 饮食
+	private String thirsty;//渴
+	private String ear;//耳
+	private String earOil;//耳油
+	private String menstruation;//月经
+	private String liverFunction;//肝功能
+	private String renalFunction;//肾功能
+	private String bloodRoutine;//血常规
 
 	// Constructors
 

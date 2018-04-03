@@ -56,6 +56,7 @@
     ,jquery: 'modules/jquery' //DOM库（第三方）
     ,dropdown: 'modules/dropdown' //下拉按钮
     ,treeGrid: 'modules/treeGrid' // 树形表格
+    ,common: 'modules/common' // 树形表格
     ,mobile: 'modules/mobile' //移动大模块 | 若当前为开发目录，则为移动模块入口，否则为移动模块集合
     ,'layui.all': '../layui.all' //PC模块合并版
   };
