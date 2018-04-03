@@ -4,136 +4,235 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>修改病人信息</title>
-	<link href="<%=path%>/css/style.css" rel="stylesheet" type="text/css" />
+	<title>病例管理</title>
+	<link href="<%=path%>/css/style.css?v=2018040301" rel="stylesheet" type="text/css" />
 	<link href="<%=path%>/css/select.css" rel="stylesheet" type="text/css" />
+	<link href="<%=path%>/third/layui/css/layui.css" rel="stylesheet" type="text/css" />
+	<style type="text/css">
+		.main {
+			margin: 10px;
+			width: 98%;
+		}
+		.main .layui-elem-quote {
+			padding: 8px;
+		}
+		.forminfo {
+			overflow: hidden;margin-bottom: 10px;
+		}
+		.forminfo li {
+			color: #898e93;
+		}
+		.main .patient-msg span, .case-msg ul.forminfo  span {
+			minWidth: 86px;
+			line-height: 34px;
+			display: block;
+			float: left;
+			margin-right: 21px;
+		}
+		.layui-elem-quote .layui-btn-sm {
+			height: 23px;
+			line-height: 23px;
+			padding: 0 10px;
+			font-size: 12px;
+		}
+		.forminfo li label{width:auto;line-height:34px; display:block; float:left;}
+		#add-form .layui-form-label span {
+			color:  red;
+		}
+	</style>
+	<script type="text/javascript" src="<%=path%>/third/layui/layui.js"></script>
 </head>
+<%@ include file="CasCase_add.jsp"%>
 <body>
 	<div class="place">
 		<span>位置：</span>
 		<ul class="placeul">
 			<li><a href="#">首页</a></li>
-			<li><a href="#">病人管理</a></li>
-			<li><a href="#">病人基本信息</a></li>
+			<li><a href="#">病例管理</a></li>
 		</ul>
 	</div>
-	<div class="formbody" id="tab1">
-		<div class="formtitle">
-			<span>基本信息</span>
+	<div class="main">
+		<blockquote class="layui-elem-quote">病人基本信息</blockquote>
+		<div class="patient-msg">
+			<ul class="forminfo" style="">
+				<li><label>病人编号：</label><span>${casPatient.patientCode}</span> <label>病人姓名：</label><span>${casPatient.patientName}</span><label>性别：</label><span><s:if test="casPatient.patientSex==0">男</s:if><s:else>女</s:else></span>
+				<label>年龄：</label><span>${casPatient.patientAge}</span><label>民族：</label><span>${casPatient.patientNation}</span><label>婚姻状况：</label><span><s:if test="casPatient.patientMarriage==1">已婚</s:if><s:else>未婚</s:else></span>
+				<label>职业：</label><span>${casPatient.patientJob}计算机</span><label>联系方式：</label><span>${casPatient.patientPhone}13307745259</span><label>出生地：</label><span>${casPatient.patientBirthplace}广东省广州市海珠区万胜围天悦广场</span></li>
+			</ul>
 		</div>
-	<div class="formtitle"><span>病例基本信息</span></div>
-    <form action="<%= basePath%>/biz/CasPatient_add.action" method="post" id="commonform">
-	    <ul class="forminfo">
-		    <li><label>就诊时间</label><input name="casCase.visitime" type="text" class="dfinput" value="${casPatient.patientCode}"/></li>
-		    <li><label>脈象</label><input name="casCase.pulse" type="text" class="dfinput" value="${casCase.pulse}"/></li>
-		    <li><label>舌质</label><input name="casCase.tongueQuality" type="text" class="dfinput" value="${casCase.tongueQuality}"/></li>
-		    <li><label>舌苔</label><input name="casCase.fur" type="text" class="dfinput" value="${casCase.fur}"/></li>
-		    <li><label>舌体</label><input name="casCase.tongue" type="text" class="dfinput" value="${casCase.tongue}"/></li>
-		    <li><label>六经症状</label>
-		    	<s:if test="casCase.sixChannel==0"> 
-									       太阴<input name="casCase.sixChannel" type="radio" class="dfradio" checked value="0"/>
-		    						       少阴<input name="casCase.sixChannel" type="radio" class="dfradio" value="1"/>
-		   							       厥阴 <input name="casCase.sixChannel" type="radio" class="dfradio" value="2"/>
-		    						       太阳<input name="casCase.sixChannel" type="radio" class="dfradio" value="3"/>
-		    						       阳明 <input name="casCase.sixChannel" type="radio" class="dfradio" value="4"/>
-		    						       少阳<input name="casCase.sixChannel" type="radio" class="dfradio" value="5"/>
-				</s:if>
-				<s:elseif test="casCase.sixChannel==1"> 
-									       太阴<input name="casCase.sixChannel" type="radio" class="dfradio" value="0"/>
-		    						       少阴<input name="casCase.sixChannel" type="radio" class="dfradio" checked value="1"/>
-		   							       厥阴 <input name="casCase.sixChannel" type="radio" class="dfradio" value="2"/>
-		    						       太阳<input name="casCase.sixChannel" type="radio" class="dfradio" value="3"/>
-		    						       阳明 <input name="casCase.sixChannel" type="radio" class="dfradio" value="4"/>
-		    						       少阳<input name="casCase.sixChannel" type="radio" class="dfradio" value="5"/>
-				</s:elseif>
-				<s:elseif test="casCase.sixChannel==2"> 
-									       太阴<input name="casCase.sixChannel" type="radio" class="dfradio" value="0"/>
-		    						       少阴<input name="casCase.sixChannel" type="radio" class="dfradio" value="1"/>
-		   							       厥阴 <input name="casCase.sixChannel" type="radio" class="dfradio" checked value="2"/>
-		    						       太阳<input name="casCase.sixChannel" type="radio" class="dfradio" value="3"/>
-		    						       阳明 <input name="casCase.sixChannel" type="radio" class="dfradio" value="4"/>
-		    						       少阳<input name="casCase.sixChannel" type="radio" class="dfradio" value="5"/>
-				</s:elseif>
-				<s:elseif test="casCase.sixChannel==3"> 
-									       太阴<input name="casCase.sixChannel" type="radio" class="dfradio" value="0"/>
-		    						       少阴<input name="casCase.sixChannel" type="radio" class="dfradio" value="1"/>
-		   							       厥阴 <input name="casCase.sixChannel" type="radio" class="dfradio" value="2"/>
-		    						       太阳<input name="casCase.sixChannel" type="radio" class="dfradio" checked value="3"/>
-		    						       阳明 <input name="casCase.sixChannel" type="radio" class="dfradio" value="4"/>
-		    						       少阳<input name="casCase.sixChannel" type="radio" class="dfradio" value="5"/>
-				</s:elseif>
-				<s:elseif test="casCase.sixChannel==4"> 
-									       太阴<input name="casCase.sixChannel" type="radio" class="dfradio" value="0"/>
-		    						       少阴<input name="casCase.sixChannel" type="radio" class="dfradio" value="1"/>
-		   							       厥阴 <input name="casCase.sixChannel" type="radio" class="dfradio" value="2"/>
-		    						       太阳<input name="casCase.sixChannel" type="radio" class="dfradio" value="3"/>
-		    						       阳明 <input name="casCase.sixChannel" type="radio" class="dfradio" checked value="4"/>
-		    						       少阳<input name="casCase.sixChannel" type="radio" class="dfradio" value="5"/>
-				</s:elseif>
-				<s:elseif test="casCase.sixChannel==5"> 
-									       太阴<input name="casCase.sixChannel" type="radio" class="dfradio" value="0"/>
-		    						       少阴<input name="casCase.sixChannel" type="radio" class="dfradio" value="1"/>
-		   							       厥阴 <input name="casCase.sixChannel" type="radio" class="dfradio" value="2"/>
-		    						       太阳<input name="casCase.sixChannel" type="radio" class="dfradio" value="3"/>
-		    						       阳明 <input name="casCase.sixChannel" type="radio" class="dfradio" value="4"/>
-		    						       少阳<input name="casCase.sixChannel" type="radio" class="dfradio" checked value="5"/>
-				</s:elseif>
-		    <li><label>面部皮肤</label>
-		        <s:if test="casCase.face==0"> 
-		        					       青<input name="casCase.face" type="radio" class="dfradio" checked value="0"/> 
-									       赤<input name="casCase.face" type="radio" class="dfradio" value="1"/> 
-		   							       黄 <input name="casCase.face" type="radio" class="dfradio" value="2"/> 
-		    						       白<input name="casCase.face" type="radio" class="dfradio" value="3"/> 
-		    						       黑 <input name="casCase.face" type="radio" class="dfradio" value="4"/> 
-				</s:if>
-				<s:elseif test="casCase.face==1"> 
-		        					       青<input name="casCase.face" type="radio" class="dfradio" value="0"/> 				
-									       赤<input name="casCase.face" type="radio" class="dfradio" checked value="1"/> 
-		   							       黄 <input name="casCase.face" type="radio" class="dfradio" value="2"/> 
-		    						       白<input name="casCase.face" type="radio" class="dfradio" value="3"/> 
-		    						       黑 <input name="casCase.face" type="radio" class="dfradio" value="4"/> 
-				</s:elseif>
-				<s:elseif test="casCase.face==2"> 
-		        					       青<input name="casCase.face" type="radio" class="dfradio" value="0"/> 				
-									       赤<input name="casCase.face" type="radio" class="dfradio" value="1"/> 
-		   							       黄 <input name="casCase.face" type="radio" class="dfradio" checked value="2"/> 
-		    						       白<input name="casCase.face" type="radio" class="dfradio" value="3"/> 
-		    						       黑 <input name="casCase.face" type="radio" class="dfradio" value="4"/> 
-				</s:elseif>
-				<s:elseif test="casCase.face==3"> 
-		        					       青<input name="casCase.face" type="radio" class="dfradio" value="0"/> 				
-									       赤<input name="casCase.face" type="radio" class="dfradio" value="1"/> 
-		   							       黄 <input name="casCase.face" type="radio" class="dfradio" value="2"/> 
-		    						       白<input name="casCase.face" type="radio" class="dfradio" checked value="3"/> 
-		    						       黑 <input name="casCase.face" type="radio" class="dfradio" value="4"/> 
-				</s:elseif>
-				<s:elseif  test="casCase.face==4"> 
-		        					       青<input name="casCase.face" type="radio" class="dfradio" value="0"/> 				
-									       赤<input name="casCase.face" type="radio" class="dfradio" value="1"/> 
-		   							       黄 <input name="casCase.face" type="radio" class="dfradio" value="2"/> 
-		    						       白<input name="casCase.face" type="radio" class="dfradio" value="3"/> 
-		    						       黑 <input name="casCase.face" type="radio" class="dfradio" checked value="4"/> 
-				</s:elseif></li>
-				
-		    <li><label>咳嗽</label><input name="casCase.cough" type="text" class="dfinput" value="${casCase.cough}"/></li>
-		    <li><label>大便</label><input name="casCase.excrement" type="text" class="dfinput" value="${casCase.excrement}" /></li>
-		    <li><label>小便</label><input name="casCase.pee" type="text" class="dfinput" value="${casCase.pee}"></input></li>
-		    <li><label>冷热</label><input name="casCase.coldHot" type="text" class="dfinput" value="${casCase.coldHot}"></input></li>
-		    <li><label>汗</label><input name="casCase.sweat" type="text" class="dfinput" value="${casCase.sweat}"></input></li>
-		    <li><label>头身</label><input name="casCase.headBody" type="text" class="dfinput" value="${casCase.headBody}"/></li>
-		    <li><label>饮食</label><input name="casCase.diet" type="text" class="dfinput"  value="${casCase.diet}"/></li>
-		    <li><label>渴</label><input name="casCase.thirsty" type="text" class="dfinput" value="${casCase.thirsty}"/></li>
-		    <li><label>耳</label><input name="casCase.ear" type="text" class="dfinput" value="${casCase.ear}"/></li>
-		    <li><label>耳油</label><input name="casCase.earOil" type="text" class="dfinput" value="${casCase.earOil}"/></li>
-		    <li><label>月经</label><input name="casCase.menstruation" type="text" class="dfinput" value="${casCase.menstruation}"/></li>
-		    <li><label>肝功能</label><input name="casCase.liverFunction" type="text" class="dfinput"  value="${casCase.liverFunction}"/></li>
-		    <li><label>肾功能</label><input name="casCase.renalFunction" type="text" class="dfinput" value="${casCase.renalFunction}"></input></li>
-		    <li><label>血常规</label><input name="casCase.bloodRoutine" type="text" class="dfinput" value="${casCase.bloodRoutine}"></input></li>
-	     </ul> 
-	     <ul class="forminfo">
-	    	<li><label>&nbsp;</label><input name="" type="submit" class="btn" value="确认保存"/></li>
-	     </ul>
-    </form>  
-    </div>
+		<blockquote class="layui-elem-quote">病例信息 <a class="layui-btn layui-btn-sm operator-btn" data-type="add" style="float: right;" >添加</a></blockquote>
+		<div class="case-msg">
+			<div class="layui-collapse">
+				<div class="layui-colla-item">
+					<h2 class="layui-colla-title">病例一：</h2>
+					<div class="layui-colla-content layui-show">
+						<ul class="forminfo">
+							<li><label>就诊时间：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>脈象：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>舌质：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>舌苔：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>舌体：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>六经症状：</label>
+								<span>
+									<s:if test="casPatient.patientSex==0">太阴</s:if>
+									<s:elseif test="casPatient.patientSex==1">少阴</s:elseif>
+									<s:elseif test="casPatient.patientSex==2">厥阴</s:elseif>
+									<s:elseif test="casPatient.patientSex==3">太阳</s:elseif>
+									<s:elseif test="casPatient.patientSex==4">阳明</s:elseif>
+									<s:elseif test="casPatient.patientSex==5">少阳</s:elseif>
+								</span>
+							<li><label>面部皮肤：</label>
+								<span>
+									<s:if test="casPatient.patientSex==0">青</s:if>
+									<s:elseif test="casPatient.patientSex==1">赤</s:elseif>
+									<s:elseif test="casPatient.patientSex==2">黄</s:elseif>
+									<s:elseif test="casPatient.patientSex==3">白</s:elseif>
+									<s:elseif  test="casPatient.patientSex==4">黑</s:elseif>
+								</span>
+						    </li>
+							<li><label>咳嗽：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>大便：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>小便：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>冷热：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>汗：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>头身：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>饮食：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>渴：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>耳：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>耳油：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>月经：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>肝功能：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>肾功能：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>血常规：</label><span>${casPatient.patientAge}</span></li>
+						</ul>
+					</div>
+				</div>
+				<div class="layui-colla-item">
+					<h2 class="layui-colla-title">病例二：</h2>
+					<div class="layui-colla-content">
+						<ul class="forminfo">
+							<li><label>就诊时间：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>脈象：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>舌质：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>舌苔：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>舌体：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>六经症状：</label>
+								<span>
+									<s:if test="casPatient.patientSex==0">太阴</s:if>
+									<s:elseif test="casPatient.patientSex==1">少阴</s:elseif>
+									<s:elseif test="casPatient.patientSex==2">厥阴</s:elseif>
+									<s:elseif test="casPatient.patientSex==3">太阳</s:elseif>
+									<s:elseif test="casPatient.patientSex==4">阳明</s:elseif>
+									<s:elseif test="casPatient.patientSex==5">少阳</s:elseif>
+								</span>
+							<li><label>面部皮肤：</label>
+								<span>
+									<s:if test="casPatient.patientSex==0">青</s:if>
+									<s:elseif test="casPatient.patientSex==1">赤</s:elseif>
+									<s:elseif test="casPatient.patientSex==2">黄</s:elseif>
+									<s:elseif test="casPatient.patientSex==3">白</s:elseif>
+									<s:elseif  test="casPatient.patientSex==4">黑</s:elseif>
+								</span>
+							</li>
+							<li><label>咳嗽：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>大便：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>小便：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>冷热：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>汗：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>头身：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>饮食：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>渴：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>耳：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>耳油：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>月经：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>肝功能：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>肾功能：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>血常规：</label><span>${casPatient.patientAge}</span></li>
+						</ul>
+					</div>
+				</div>
+				<div class="layui-colla-item">
+					<h2 class="layui-colla-title">病例三：</h2>
+					<div class="layui-colla-content">
+						<ul class="forminfo">
+							<li><label>就诊时间：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>脈象：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>舌质：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>舌苔：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>舌体：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>六经症状：</label>
+								<span>
+									<s:if test="casPatient.patientSex==0">太阴</s:if>
+									<s:elseif test="casPatient.patientSex==1">少阴</s:elseif>
+									<s:elseif test="casPatient.patientSex==2">厥阴</s:elseif>
+									<s:elseif test="casPatient.patientSex==3">太阳</s:elseif>
+									<s:elseif test="casPatient.patientSex==4">阳明</s:elseif>
+									<s:elseif test="casPatient.patientSex==5">少阳</s:elseif>
+								</span>
+							<li><label>面部皮肤：</label>
+								<span>
+									<s:if test="casPatient.patientSex==0">青</s:if>
+									<s:elseif test="casPatient.patientSex==1">赤</s:elseif>
+									<s:elseif test="casPatient.patientSex==2">黄</s:elseif>
+									<s:elseif test="casPatient.patientSex==3">白</s:elseif>
+									<s:elseif  test="casPatient.patientSex==4">黑</s:elseif>
+								</span>
+							</li>
+							<li><label>咳嗽：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>大便：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>小便：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>冷热：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>汗：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>头身：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>饮食：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>渴：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>耳：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>耳油：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>月经：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>肝功能：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>肾功能：</label><span>${casPatient.patientAge}</span></li>
+							<li><label>血常规：</label><span>${casPatient.patientAge}</span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+        //注意：折叠面板 依赖 element 模块，否则无法进行功能性操作
+        layui.use(['element','common','laydate','form'], function(){
+            var $ = layui.jquery, element = layui.element,common = layui.common,laydate = layui.laydate,form = layui.form;
+            laydate.render({elem: '#visitTime'})
+            var active = {
+                add: function () {
+                    common.addForm({
+						content: $('#add-form'),
+						area:['800px','500px'],
+						title:'添加病例',
+                        yes: function (index, layero) {
+                            var formEm = $(layero).find("form");
+                            if (!form.onVerify(formEm)){
+                                return false;
+                            }
+                            /**表单提交 **/
+                            $.post('<%=basePath%>/bizJson/CasCase_add.action', formEm.serialize(), function(result){
+                                if(result.code == 0){
+                                    formEm[0].reset();	//清空弹框表单内容
+                                    layer.close(index);	//关闭弹框
+                                    return;
+                                }
+                                layer.msg(result.msg);
+                            });
+                        }
+					})
+                }
+			}
+            //绑定操作按钮
+            $('.operator-btn').on('click', function(){
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+        });
+	</script>
 </body>
 </html>

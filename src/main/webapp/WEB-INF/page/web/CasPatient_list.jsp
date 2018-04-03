@@ -127,11 +127,14 @@
 									<td><p:permissions right="deleteUser">
 											<a href="javascript:;" class="tablelinkdelete"
 												 patientCode="${patientCode}"> 删除</a>&nbsp;&nbsp;
-	     	</p:permissions> <p:permissions right="editUser">
-											<a
-												href="<%= basePath%>/biz/CasPatient_openEdit.action?patientCode=${patientCode}"
+	     								</p:permissions>
+										<p:permissions right="editUser">
+											<a href="<%= basePath%>/biz/CasPatient_openEdit.action?patientCode=${patientCode}"
 												class="tablelink">修改</a>
-										</p:permissions></td>
+										</p:permissions>
+										<a href="<%= basePath%>/biz/CasCase_openMessage.action?patientCode=${patientCode}"
+										   class="tablelink">&nbsp;&nbsp;添加病例</a>
+									</td>
 								</p:permissions>
 							</tr>
 						</s:iterator>
