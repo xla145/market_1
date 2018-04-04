@@ -3,12 +3,16 @@ package com.gxuwz.Market.business.action.web;
 import com.alibaba.fastjson.JSONObject;
 import com.gxuwz.Market.business.entity.CasCase;
 import com.gxuwz.Market.business.entity.CasPatient;
+import com.gxuwz.Market.business.service.ICasCaseService;
 import com.gxuwz.Market.business.service.ICasPatientService;
 import com.gxuwz.Market.util.JsonBean;
 import com.gxuwz.core.pagination.Result;
 import com.gxuwz.core.web.action.BaseAction;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class CasCaseAction extends BaseAction implements Preparable, ModelDriven{
@@ -19,6 +23,8 @@ public class CasCaseAction extends BaseAction implements Preparable, ModelDriven
 
 	@Autowired
 	private ICasPatientService casPatientService;
+	@Autowired
+	private ICasCaseService casCaseService;
 	private CasCase casCase;
 	private CasPatient casPatient;// 病人模型
 	private Result<CasCase> casCasePageResult;// 分页
@@ -49,8 +55,9 @@ public class CasCaseAction extends BaseAction implements Preparable, ModelDriven
 	 * @throws Exception
 	 */
 	public String list() throws Exception {
-		pageResult = casPatientService.find(casPatient, getPage(), getRow());
-		data = JsonBean.success("success",pageResult);
+		String patientCode = getParameters("patientCode", null);
+		List<CasCase> cas = casCaseService.getAllCasesByPatientCode(patientCode);
+		data = JsonBean.success("success",cas);
 		return SUCCESS;
 	}
 
@@ -62,6 +69,7 @@ public class CasCaseAction extends BaseAction implements Preparable, ModelDriven
 	 */
 	public String add() throws Exception {
 		System.out.println(com.alibaba.fastjson.JSON.toJSON(casCase));
+		casCase = casCaseService.add(casCase);
 		data = JsonBean.success("success",casCase); // 病例的model 已经获取到值，差加入到数据库
 		return SUCCESS;
 	}

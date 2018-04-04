@@ -57,7 +57,7 @@
 			<ul class="forminfo" style="">
 				<li><label>病人编号：</label><span>${casPatient.patientCode}</span> <label>病人姓名：</label><span>${casPatient.patientName}</span><label>性别：</label><span><s:if test="casPatient.patientSex==0">男</s:if><s:else>女</s:else></span>
 				<label>年龄：</label><span>${casPatient.patientAge}</span><label>民族：</label><span>${casPatient.patientNation}</span><label>婚姻状况：</label><span><s:if test="casPatient.patientMarriage==1">已婚</s:if><s:else>未婚</s:else></span>
-				<label>职业：</label><span>${casPatient.patientJob}计算机</span><label>联系方式：</label><span>${casPatient.patientPhone}13307745259</span><label>出生地：</label><span>${casPatient.patientBirthplace}广东省广州市海珠区万胜围天悦广场</span></li>
+				<label>职业：</label><span>${casPatient.patientJob}</span><label>联系方式：</label><span>${casPatient.patientPhone}</span><label>出生地：</label><span>${casPatient.patientBirthplace}</span></li>
 			</ul>
 		</div>
 		<blockquote class="layui-elem-quote">病例信息 <a class="layui-btn layui-btn-sm operator-btn" data-type="add" style="float: right;" >添加</a></blockquote>

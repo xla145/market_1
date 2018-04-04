@@ -8,7 +8,7 @@
     <class name="com.gxuwz.Market.business.entity.CasCase" table="cas_case" catalog="cases_db">
         <id name="id" type="java.lang.Integer">
             <column name="id" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="patientCode" type="java.lang.String">
             <column name="patient_code" >

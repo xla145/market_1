@@ -44,8 +44,9 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
     public T save(T entity) {
         try {
             hibernateTemplate.saveOrUpdate(entity);
-        } catch (RuntimeException e) {
-            logger.error("保存失败（"+getClass().getName()+"）,原因是【", e.getMessage()+"】");
+        } catch (Exception e) {
+        	e.printStackTrace();
+            logger.error("保存失败（"+getClass().getName()+"）,原因是【"+ e.getMessage()+"】");
             throw e;
         }
         return entity;
